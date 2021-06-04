@@ -381,6 +381,20 @@ fi
 alias bbd='brew bundle dump --all --force --file=$HOME/z.dots/brew/Brewfile'
 
 
+# add sudo before command with esc+esc
+function prepend-sudo() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER == sudo\ * ]]; then
+    LBUFFER="${LBUFFER#sudo }"
+  else
+    LBUFFER="sudo $LBUFFER"
+  fi
+}
+zle -N prepend-sudo
+# defined shortcut keys: [Esc] [Esc]
+bindkey "\e\e" prepend-sudo
+
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
 [[ -f $P10K_THEME ]] && source "$P10K_THEME"
