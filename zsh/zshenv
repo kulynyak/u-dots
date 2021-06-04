@@ -1,0 +1,119 @@
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ($SHLVL -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
+
+PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# set the github API token for homebrew
+HOMEBREW_GITHUB_API_TOKEN_PATH="$HOME/Dropbox/sync.dotfiles/brew.github.token.txt"
+[[ -f $HOMEBREW_GITHUB_API_TOKEN_PATH ]] && export HOMEBREW_GITHUB_API_TOKEN=$(<$HOMEBREW_GITHUB_API_TOKEN_PATH)
+
+## gnubin
+GNU_BIN=$(brew --prefix coreutils)/libexec/gnubin
+[[ -d "$GNU_BIN" ]] && PATH="$PATH:$GNU_BIN"
+
+# Java
+# export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true"
+# export JAVA7_HOME="$(/usr/libexec/java_home -v 1.7)"
+# export JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
+# export JAVA11_HOME="$(/usr/libexec/java_home -v 11)"
+# export JAVA13_HOME="$(/usr/libexec/java_home -v 13)"
+# export JAVA14_HOME="$(/usr/libexec/java_home -v 14)"
+# export JAVA15_HOME="$(/usr/libexec/java_home -v 15)"
+# export JAVA_HOME="$JAVA11_HOME"
+
+# bin in home dir
+HOME_BIN="$HOME/bin"
+[[ -d $HOME_BIN ]] && PATH="$HOME_BIN:$PATH"
+
+# .local/bin in home dir
+HOME_LBIN="$HOME/.local/bin"
+[[ -d $HOME_LBIN ]] && PATH="$HOME_LBIN:$PATH"
+
+# gnu man
+MANPATH_GNU="/usr/local/opt/findutils/libexec/gnuman"
+[[ -d $MANPATH_GNU ]] && export MANPATH="$MANPATH_GNU:$MANPATH"
+
+# android
+# ANDROID_HOME="$HOME/Library/Android/sdk"
+# if [[ -d $ANDROID_HOME ]]; then
+#   export ANDROID_HOME
+#   PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin:$PATH"
+# fi
+
+# anaconda3
+# ANACONDA3="/usr/local/anaconda3/bin"
+# [[ -d $ANACONDA3 ]] && PATH="$ANACONDA3:$PATH"
+
+# go
+# GOROOT="$(brew --prefix golang)/libexec"
+GOROOT="/usr/local/opt/go/libexec"
+if [ -d "$GOROOT" ]; then
+  export GOROOT
+  export GOPATH="$HOME/.go"
+  [[ -d $GOPATH ]] || mkdir -p "$GOPATH"
+  [[ -d "$GOPATH/src/github.com" ]] || mkdir -p "$GOPATH/src/github.com"
+  PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
+fi
+
+# ruby
+# RUBY_PATH="/usr/local/opt/ruby"
+# if [ -d "$RUBY_PATH" ]; then
+#   export LDFLAGS="$LDFLAGS -L$RUBY_PATH/lib"
+#   export CPPFLAGS="$CPPFLAGS -I$RUBY_PATH/include"
+#   export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$RUBY_PATH/lib/pkgconfig"
+#   PATH="$RUBY_PATH/bin:${PATH}"
+# fi
+
+# disable to run Firefox in safe mode
+export MOZ_DISABLE_SAFE_MODE_KEY="never"
+
+# maven
+# M2_HOME="/usr/local/opt/maven/libexec"
+# [[ -d $M2_HOME ]] && export M2_HOME
+
+# curl
+CURLP="/usr/local/opt/curl-openssl/bin"
+[[ -d $CURLP ]] && PATH="$CURLP:$PATH"
+
+# misc
+# PATH="$PATH:$HOME/hacker1/xsser"
+
+# gettext
+GETTXT="/usr/local/opt/gettext"
+if [ -d "$GETTXT" ]; then
+  export LDFLAGS="$LDFLAGS -L$GETTXT/lib"
+  export CPPFLAGS="$CPPFLAGS -I$GETTXT/include"
+  PATH="$GETTXT/bin:${PATH}"
+fi
+
+# kafka tools
+# KFT="$HOME/tools/confluent-5.5.1/bin"
+# [ -d "$KFT" ] && PATH="$PATH:$KFT"
+
+# WORDS="$HOME/h1/words"
+# [[ -d $WORDS ]] && PATH="$WORDS:$PATH"
+
+# NVM_DIR="$HOME/.nvm"
+# [[ -d $NVM_DIR ]] && export NVM_DIR
+# [[ -s "/usr/local/opt/nvm/nvm.sh" ]] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
+
+# P_VER="3.9"
+# L_PYTHON="$HOME/Library/Python/$P_VER/bin"
+# [[ -d "$L_PYTHON" ]] && PATH="$PATH:$L_PYTHON"
+# B_PYTHON="/usr/local/opt/python@$P_VER/libexec/bin"
+# [[ -d "$B_PYTHON" ]] && PATH="$B_PYTHON:$PATH"
+
+# APR
+# [[ -d "/usr/local/opt/apr/bin" ]] && PATH="/usr/local/opt/apr/bin:$PATH"
+# [[ -d "usr/local/opt/apr-util/bin" ]] && PATH="/usr/local/opt/apr-util/bin:$PATH"
+
+# NODE_PATH="/usr/local/opt/node@10"
+# [[ -d $NODE_PATH ]] && PATH="$NODE_PATH/bin:$PATH"
+
+# WMVARE_PATH="/Applications/VMware Fusion.app/Contents/Public"
+# [[ -d $WMVARE_PATH ]] && PATH="$PATH:$WMVARE_PATH"
+
+# the last one
+export PATH=".:$PATH"

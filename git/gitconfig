@@ -1,0 +1,122 @@
+[user]
+	name = Andriy Kulynyak
+	email = kulynyak@gmail.com
+
+[diff]
+	tool = p4mergetool
+
+[difftool]
+  prompt = false
+
+[merge]
+	tool = p4mergetool
+
+[mergetool]
+	prompt = false
+	keepBackup = false
+
+[mergetool "p4mergetool"]
+  cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge /Users/akulynyak/Desktop/ /Users/akulynyak/Desktop/ /Users/akulynyak/Desktop/ /Users/akulynyak/Desktop/
+  trustExitCode = false
+
+[difftool "p4mergetool"]
+  cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+
+[core]
+	excludesfile = /Users/akulynyak/.gitignore_global
+  autocrlf = input
+
+[push]
+  default = simple
+
+[alias]
+  	# Pull + rebase
+  	pr = !sh -c 'git pull --rebase' -
+  	co = checkout
+  	ci = commit
+  	br = branch
+  	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  	tree = log  --color --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %C(yellow dim)(%cr) %C(cyan dim bold)<%an>%Creset' --abbrev-commit --
+  	history = log --color=always --all --topo-order --pretty='format:%C(yellow)%h%Creset %s%Cred%d%Creset %C(yellow dim)(%cr)%Creset %C(cyan dim bold)<%an>%Creset'
+  	type = cat-file -t
+  	dump = cat-file -p
+  	st = status -s
+  	s = status
+  	sm = submodule
+  	lg = log --graph --decorate --abbrev-commit --pretty=format:'%C(bold red)%h%C(reset) %C(bold blue)%an%C(reset) -%C(cyan)%d%C(reset) %s %C(bold cyan)(%cr)'
+  	lgless = "!f() { git log --graph --decorate --abbrev-commit --pretty=format:\"%C(bold red)%h%C(reset) %C(bold blue)%an%C(reset) -%C(cyan)%d%C(reset) %s %C(bold cyan)(%cr)\" $1 | less -R; }; f"
+  	ls = log --stat --decorate --no-merges
+  	lc = log ORIG_HEAD.. --stat --no-merges --decorate
+  	df = diff -M
+  	dfs = diff --staged -M
+  	diffstat = diff --stat -r -M
+  	# Stash
+  	stp = stash pop
+  	stl = stash list
+  	sll = stash-list
+  	stll = stash-list --full
+  	ss = stash save
+  	sa = !sh -c 'git stash apply stash@{$1}' -
+  	sd = !sh -c 'git stash drop stash@{$1}' -
+  	sts = !sh -c 'git stash show -p stash@{$1}' -
+  	# Rebase
+  	rbom = !sh -c git rebase origin/master
+  	rbi = !sh -c 'git rebase -i @~$1' -
+  	rbc = !sh -c 'git rebase --continue' -
+  	rba = !sh -c 'git rebase --abort' -
+  	who = shortlog -s --no-merges
+  	whois = !sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -
+  	abbr = "!sh -c 'git rev-list --all | grep ^$1 | while read commit; do git --no-pager show $commit; done' -"
+  	prom = !sh -c 'git fetch && git pull --rebase origin master' -
+  	cam = commit -a -m
+  	# pom = push origin master (not recommended for use)
+  	pfm = push origin HEAD:refs/for/master
+  	# Assume file is unchanged (stop tracking local changes)
+  	auc = update-index --assume-unchanged
+  	# Assume file is changed (start tracking local changes)
+  	ac = update-index --no-assume-unchanged
+  	# List all files that are assumed-unchanged (these are different from
+  	# ignored files configured through .gitignore)
+  	lsauc = !sh -c 'git ls-files -v | grep --color=auto \"^[[:lower:]]\"'
+  	# Open edited files
+  	v = !$EDITOR `git diff --name-only`
+
+[color]
+	ui = auto
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+
+[http]
+	sslVerify = false
+	emptyAuth = true
+
+[credential]
+	helper = "aws --version codecommit credential-helper "
+	UseHttpPath = true
+
+[filter "media"]
+  	required = true
+  	clean = git media clean %f
+  	smudge = git media smudge %f
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+
+[commit]
+	template = /Users/akulynyak/.stCommitMsg
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[url "git://"]
+	insteadOf = https://
