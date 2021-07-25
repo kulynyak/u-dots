@@ -9,19 +9,17 @@ PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 HOMEBREW_GITHUB_API_TOKEN_PATH="$HOME/Dropbox/sync.dotfiles/brew.github.token.txt"
 [[ -f $HOMEBREW_GITHUB_API_TOKEN_PATH ]] && export HOMEBREW_GITHUB_API_TOKEN=$(<$HOMEBREW_GITHUB_API_TOKEN_PATH)
 
-## gnubin
-GNU_BIN=$(brew --prefix coreutils)/libexec/gnubin
-[[ -d "$GNU_BIN" ]] && PATH="$PATH:$GNU_BIN"
-
 # Java
-# export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true"
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true"
 # export JAVA7_HOME="$(/usr/libexec/java_home -v 1.7)"
 # export JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
 # export JAVA11_HOME="$(/usr/libexec/java_home -v 11)"
 # export JAVA13_HOME="$(/usr/libexec/java_home -v 13)"
 # export JAVA14_HOME="$(/usr/libexec/java_home -v 14)"
 # export JAVA15_HOME="$(/usr/libexec/java_home -v 15)"
-# export JAVA_HOME="$JAVA11_HOME"
+export JAVA16_HOME="$(/usr/libexec/java_home -v 16)"
+export JAVA_HOME="$JAVA16_HOME"
 
 # bin in home dir
 HOME_BIN="$HOME/bin"
@@ -30,6 +28,18 @@ HOME_BIN="$HOME/bin"
 # .local/bin in home dir
 HOME_LBIN="$HOME/.local/bin"
 [[ -d $HOME_LBIN ]] && PATH="$HOME_LBIN:$PATH"
+
+# hombrew sbin
+BREW_SBIN=/usr/local/sbin
+[[ -d $BREW_SBIN ]] && PATH="$BREW_SBIN:$PATH"
+
+## gnu coreutils
+GNU_BIN=$(brew --prefix coreutils)/bin
+[[ -d "$GNU_BIN" ]] && PATH="$PATH:$GNU_BIN"
+
+# gnu findutils
+BIN_FIND_GNU="/usr/local/opt/findutils/bin"
+[[ -d $BIN_FIND_GNU ]] && PATH="$BIN_FIND_GNU:$PATH"
 
 # gnu man
 MANPATH_GNU="/usr/local/opt/findutils/libexec/gnuman"
@@ -88,9 +98,12 @@ if [ -d "$GETTXT" ]; then
   PATH="$GETTXT/bin:${PATH}"
 fi
 
-# kafka tools
-# KFT="$HOME/tools/confluent-5.5.1/bin"
-# [ -d "$KFT" ] && PATH="$PATH:$KFT"
+# confluent kafka tools
+CFT="$HOME/.local/confluent-cli"
+if [ -d "$CFT" ] ; then
+  PATH="$PATH:$CFT"
+  export export CONFLUENT_CURRENT="$CFT/var"
+fi
 
 # WORDS="$HOME/h1/words"
 # [[ -d $WORDS ]] && PATH="$WORDS:$PATH"
