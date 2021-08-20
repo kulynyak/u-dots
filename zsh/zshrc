@@ -85,7 +85,7 @@ zle -N foreground-current-job
 bindkey -M emacs '^z' foreground-current-job
 
 # global aliases
-autoload -Uz compinit 
+autoload -Uz compinit
 compinit -i
 
 globalias() {
@@ -262,7 +262,7 @@ alias lmk="say 'Process complete'"
 # "Done" notification
 alias -g D="; ndone"
 # "Done" notification with sound
-alias -g SD="; ndone; lmk"    
+alias -g SD="; ndone; lmk"
 
 
 # ssh agent
@@ -431,10 +431,6 @@ function prepend-sudo() {
 zle -N prepend-sudo
 # defined shortcut keys: [Esc] [Esc]
 bindkey "\e\e" prepend-sudo
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme

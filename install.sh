@@ -24,8 +24,17 @@ if [ ! -d "$hammerspoon" ]; then
   git clone git@github.com:kulynyak/hammerspoon.git
 fi
 cd hammerspoon
- ./install.sh
+./install.sh
 echo "hammerspoon installed"
+cd $z_dots
+echo "installing nvim ..."
+nvim=$z_dots/nvim
+if [ ! -d "$nvim" ]; then
+  git clone git@github.com:kulynyak/nvim.git
+fi
+cd nvim
+/.install.sh
+echo "nvim installed"
 cd $z_dots
 echo "installing Brewfile ..."
 brew bundle --file=$z_dots/brew/Brewfile
