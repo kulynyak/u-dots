@@ -9,7 +9,7 @@ if test ! $(which brew); then
   fi
 fi
 
-inst_items=('alacritty' 'git' 'karabiner' 'tmux' 'zsh' )
+inst_items=('alacritty' 'git' 'karabiner' 'tmux' 'zsh' 'wezterm' 'kitty' )
 z_dots=$PWD
 for i in $inst_items; do
   echo "installing $i ..."

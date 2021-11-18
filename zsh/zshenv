@@ -8,6 +8,7 @@ PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # set the github API token for homebrew
 HOMEBREW_GITHUB_API_TOKEN_PATH="$HOME/Dropbox/sync.dotfiles/brew.github.token.txt"
 [[ -f $HOMEBREW_GITHUB_API_TOKEN_PATH ]] && export HOMEBREW_GITHUB_API_TOKEN=$(<$HOMEBREW_GITHUB_API_TOKEN_PATH)
+export HOMEBREW_CASK_OPTS=--no-quarantine
 
 # Java
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
@@ -98,7 +99,7 @@ if [ -d "$GETTXT" ]; then
   PATH="$GETTXT/bin:${PATH}"
 fi
 
-# confluent kafka tools
+# confluent kafka toolsß
 CFT="$HOME/.local/confluent-cli"
 if [ -d "$CFT" ] ; then
   PATH="$PATH:$CFT"
@@ -116,6 +117,14 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+# remote docker
+DOCKER_BIN="$HOME/.local/bin/docker"
+DOCKER_REMOTE_HOST="192.168.1.140"
+if [ -f $DOCKER_BIN ] ; then
+  export DOCKER_HOST="tcp://$DOCKER_REMOTE_HOST:2376"
+  export DOCKER_TLS_VERIFY=1
+  export DOCKER_CERT_PATH=~/.docker
+fi
 
 # WORDS="$HOME/h1/words"
 # [[ -d $WORDS ]] && PATH="$WORDS:$PATH"
