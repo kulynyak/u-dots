@@ -38,10 +38,14 @@ esac
 setopt extended_history       # record timestamp of command in HISTFILE
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_all_dups
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
-
+setopt hist_find_no_dups
+setopt hist_save_no_dups
+setopt hist_beep
+HISTORY_IGNORE='(cd ..|l|l[alsh]|less|lvim|vi|vim|hx|n|nnn|x|q|exit|zreload)'
 
 setopt +o nomatch
 
@@ -84,10 +88,19 @@ function foreground-current-job() {
 zle -N foreground-current-job
 bindkey -M emacs '^z' foreground-current-job
 
-# global aliases
+# The globbing is a little complicated here:
+# - '#q' is an explicit glob qualifier that makes globbing work within zsh's [[ ]] construct.
+# - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
+# - '.' matches "regular files"
+# - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
 autoload -Uz compinit
-compinit -i
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit -i;
+else
+	compinit -C;
+fi;
 
+# global aliases
 globalias() {
   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
     zle _expand_alias
@@ -118,12 +131,11 @@ alias -g NF="./*(oc[1])"
 
 alias vi='$EDITOR'
 alias vim='$EDITOR'
-alias svi='sudo $EDITOR'
+alias svi='sudo nvim'
 alias snano='sudo nano'
 
-alias cd='z'
-
 alias x='exit'
+alias q='exit'
 alias zreload='exec zsh'
 
 alias hist='fc -l 1'
@@ -167,6 +179,8 @@ end'"
 
 alias ip='ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '\''{print $2}'\'
 alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+
+# alias docker='nerdctl'
 
 function myip() {
 # about 'displays your ip address, as seen by the Internet'
@@ -314,9 +328,9 @@ if (( $+commands[ssh-agent] )); then
   # Set the path to the SSH directory.
   _ssh_dir="$HOME/.ssh"
   # Set the path to the environment file if not set by another module.
-  _ssh_agent_env="${_ssh_agent_env:-${XDG_CACHE_HOME:-$HOME/.cache}/prezto/ssh-agent.env}"
+  _ssh_agent_env="${_ssh_agent_env:-${XDG_CACHE_HOME:-$HOME/.cache}/ra/ssh-agent.env}"
   # Set the path to the persistent authentication socket.
-  _ssh_agent_sock="${XDG_CACHE_HOME:-$HOME/.cache}/prezto/ssh-agent.sock"
+  _ssh_agent_sock="${XDG_CACHE_HOME:-$HOME/.cache}/ra/ssh-agent.sock"
   # Start ssh-agent if not started.
   if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
     # Export environment variables.
@@ -335,7 +349,7 @@ if (( $+commands[ssh-agent] )); then
   fi
   # Load identities.
   if ssh-add -l 2>&1 | grep -q 'The agent has no identities'; then
-    zstyle -a ':prezto:module:ssh:load' identities '_ssh_identities'
+    # zstyle -a ':prezto:module:ssh:load' identities '_ssh_identities'
     # ssh-add has strange requirements for running SSH_ASKPASS, so we duplicate
     # them here. Essentially, if the other requirements are met, we redirect stdin
     # from /dev/null in order to meet the final requirement.
@@ -381,11 +395,19 @@ bindkey '^[[B' history-substring-search-down
 
 
 # zoxide
-export _ZO_DATA_DIR=$HOME/.local/share
-eval "$(zoxide init zsh)"
+# export _ZO_DATA_DIR=$HOME/.local/share
+# eval "$(zoxide init zsh)"
 
+# z.lua
+Z_LUA_BIN=/usr/local/opt/z.lua/share/z.lua/z.lua
+if [ -f $Z_LUA_BIN ] ; then
+  export _ZL_DATA=$HOME/.local/share/zlua
+  export _ZL_ADD_ONCE=1
+  eval "$(lua $Z_LUA_BIN --init zsh)"
+  alias j='z -i'
+  alias jf='z -I'
+fi
 
-# git
 # aliases
 # cat .gitconfig
 alias cgc='cat ~/.gitconfig'
@@ -429,11 +451,11 @@ if (( $+commands[fzf] )); then
       swCmd="git checkout $nBranchName"
     fi
     [[ $nBranchName != $oBranchName ]] || return
-    stashName=$(git stash list | grep -m 1 "On ${oBranchName}: ==${oBranchName}" | sed -E "s/(stash@\{.*\}): .*/\1/g")
-    [[ -n "${stashName}" ]] && git stash drop "$stashName"
-    git stash save "==$oBranchName" 2>/dev/null
+    stashName=$(git stash list | grep -m 1 "On .*: ==${oBranchName}==" | sed -E "s/(stash@\{.*\}): .*/\1/g")
+    [[ -n "${stashName}" ]] && git stash drop "${stashName}"
+    git stash save "==${oBranchName}==" 2>/dev/null
     eval $swCmd
-    stashName=$(git stash list | grep -m 1 "On ${nBranchName}: ==${nBranchName}" | sed -E "s/(stash@\{.*\}): .*/\1/g")
+    stashName=$(git stash list | grep -m 1 "On .*: ==${nBranchName}==" | sed -E "s/(stash@\{.*\}): .*/\1/g")
     [[ -n "${stashName}" ]] && git stash apply "${stashName}"
     zle reset-prompt
   }
@@ -476,7 +498,21 @@ zle -N prepend-sudo
 # defined shortcut keys: [Esc] [Esc]
 bindkey "\e\e" prepend-sudo
 
+# direnv
+eval "$(direnv hook zsh)"
+
+
+# Ruckus
+# alias amvn='mvn -s .alto-maven-settings.xml'
+# alias ahook='$RKSCLOUD/settings-xml/bin/install-git-hook'
+# alias rks='cd $RKSCLOUD'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
 [[ -f $P10K_THEME ]] && source "$P10K_THEME"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+  export USER_ID=$(id -u $USER)
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/akulynyak/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

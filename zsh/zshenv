@@ -9,18 +9,28 @@ PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 HOMEBREW_GITHUB_API_TOKEN_PATH="$HOME/Dropbox/sync.dotfiles/brew.github.token.txt"
 [[ -f $HOMEBREW_GITHUB_API_TOKEN_PATH ]] && export HOMEBREW_GITHUB_API_TOKEN=$(<$HOMEBREW_GITHUB_API_TOKEN_PATH)
 export HOMEBREW_CASK_OPTS=--no-quarantine
+export HOMEBREW_NO_ENV_HINTS=1
+
+# nnn
+X_NNN="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/"
+if [ -f "$X_NNN/nnn.zsh" ]; then
+  . "$X_NNN/nnn.zsh"
+fi
+unset X_NNN
 
 # Java
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true"
-# export JAVA7_HOME="$(/usr/libexec/java_home -v 1.7)"
-# export JAVA8_HOME="$(/usr/libexec/java_home -v 1.8)"
-# export JAVA11_HOME="$(/usr/libexec/java_home -v 11)"
-# export JAVA13_HOME="$(/usr/libexec/java_home -v 13)"
-# export JAVA14_HOME="$(/usr/libexec/java_home -v 14)"
-# export JAVA15_HOME="$(/usr/libexec/java_home -v 15)"
-export JAVA16_HOME="$(/usr/libexec/java_home -v 16)"
-export JAVA_HOME="$JAVA16_HOME"
+#export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true"
+export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+#export JAVA_17_HOME=$(/usr/libexec/java_home -v17)
+export JAVA_HOME="$JAVA_11_HOME"
+[[ -d $JAVA_HOME ]] && PATH="$JAVA_HOME/bin:$PATH"
+
+# maven
+M2="/usr/local/opt/maven"
+if [ -d "$M2" ]; then
+  export M2_HOME="$M2/libexec"
+  PATH="$M2/bin:$PATH"
+fi
 
 # bin in home dir
 HOME_BIN="$HOME/bin"
@@ -47,11 +57,11 @@ MANPATH_GNU="/usr/local/opt/findutils/libexec/gnuman"
 [[ -d $MANPATH_GNU ]] && export MANPATH="$MANPATH_GNU:$MANPATH"
 
 # android
-# ANDROID_HOME="$HOME/Library/Android/sdk"
-# if [[ -d $ANDROID_HOME ]]; then
-#   export ANDROID_HOME
-#   PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin:$PATH"
-# fi
+ANDROID_HOME="$HOME/Library/Android/sdk"
+if [[ -d $ANDROID_HOME ]]; then
+  export ANDROID_HOME
+  PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin:$PATH"
+fi
 
 # anaconda3
 # ANACONDA3="/usr/local/anaconda3/bin"
@@ -80,10 +90,6 @@ fi
 # disable to run Firefox in safe mode
 export MOZ_DISABLE_SAFE_MODE_KEY="never"
 
-# maven
-# M2_HOME="/usr/local/opt/maven/libexec"
-# [[ -d $M2_HOME ]] && export M2_HOME
-
 # curl
 CURLP="/usr/local/opt/curl-openssl/bin"
 [[ -d $CURLP ]] && PATH="$CURLP:$PATH"
@@ -99,16 +105,16 @@ if [ -d "$GETTXT" ]; then
   PATH="$GETTXT/bin:${PATH}"
 fi
 
-# confluent kafka toolsß
-CFT="$HOME/.local/confluent-cli"
-if [ -d "$CFT" ] ; then
-  PATH="$PATH:$CFT"
-  export export CONFLUENT_CURRENT="$CFT/var"
-fi
+# confluent kafka tools
+#CFT="$HOME/.local/confluent-cli"
+#if [ -d "$CFT" ] ; then
+#  PATH="$PATH:$CFT"
+#  export CONFLUENT_CURRENT="$CFT/var"
+#fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
 
 # python
 export PYENV_ROOT="$HOME/.pyenv"
@@ -117,21 +123,32 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+# mysql-client
+#MSQL_CLNT="/usr/local/opt/mysql-client/bin"
+#[[ -d $MSQL_CLNT ]] && PATH="$MSQL_CLNT:$PATH"
+
 # remote docker
-DOCKER_BIN="$HOME/.local/bin/docker"
-DOCKER_REMOTE_HOST="192.168.1.140"
-if [ -f $DOCKER_BIN ] ; then
-  export DOCKER_HOST="tcp://$DOCKER_REMOTE_HOST:2376"
-  export DOCKER_TLS_VERIFY=1
-  export DOCKER_CERT_PATH=~/.docker
-fi
+# DOCKER_BIN="$HOME/.local/bin/docker"
+# DOCKER_REMOTE_PORT=2376
+# DOCKER_REMOTE_HOST="192.168.1.150"
+# if [ -f $DOCKER_BIN ] ; then
+#   export DOCKER_HOST="tcp://$DOCKER_REMOTE_HOST:$DOCKER_REMOTE_PORT"
+#   export DOCKER_TLS_VERIFY=1
+#   export DOCKER_CERT_PATH=~/.docker
+# fi
 
 # WORDS="$HOME/h1/words"
 # [[ -d $WORDS ]] && PATH="$WORDS:$PATH"
 
-# NVM_DIR="$HOME/.nvm"
-# [[ -d $NVM_DIR ]] && export NVM_DIR
-# [[ -s "/usr/local/opt/nvm/nvm.sh" ]] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
+# https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally
+# NPM_GLOB="$HOME/.npm-global"
+# mkdir -p $NPM_GLOB
+# npm config set prefix $NPM_GLOB
+# export PATH=$NPM_GLOB:$PATH
+
+NVM_DIR="$HOME/.nvm"
+[[ -d $NVM_DIR ]] && export NVM_DIR
+[[ -s "/usr/local/opt/nvm/nvm.sh" ]] && . "/usr/local/opt/nvm/nvm.sh" # This loads nvm
 
 # P_VER="3.9"
 # L_PYTHON="$HOME/Library/Python/$P_VER/bin"
@@ -149,5 +166,21 @@ fi
 # WMVARE_PATH="/Applications/VMware Fusion.app/Contents/Public"
 # [[ -d $WMVARE_PATH ]] && PATH="$PATH:$WMVARE_PATH"
 
+#perl
+# PATH="/Users/akulynyak/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# PERL5LIB="/Users/akulynyak/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="/Users/akulynyak/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"/Users/akulynyak/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/Users/akulynyak/perl5"; export PERL_MM_OPT;
+
 # the last one
 export PATH=".:$PATH"
+ulimit -n 1024
+
+# Ruckus
+# export RKSCLOUD="$HOME/work/ruckus/Repo/rks-cloud"
+
+# confluent
+CONFLUENT_VER="7.0.1"
+CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
+[[ -d $CONFLUENT_BIN ]] && PATH="$CONFLUENT_BIN:$PATH"

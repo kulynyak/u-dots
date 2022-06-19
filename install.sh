@@ -9,33 +9,34 @@ if test ! $(which brew); then
   fi
 fi
 
-inst_items=('alacritty' 'git' 'karabiner' 'tmux' 'zsh' 'wezterm' 'kitty' )
-z_dots=$PWD
+inst_items=('alacritty' 'git' 'karabiner' 'tmux' 'zsh' 'wezterm' 'kitty')
+u_dots=$PWD
 for i in $inst_items; do
   echo "installing $i ..."
   cd $i
   ./install.sh
   echo "$i installed"
-  cd $z_dots
+  cd $u_dots
 done
 echo "installing hammerspoon ..."
-hammerspoon=$z_dots/hammerspoon
+hammerspoon=$HOME/.hammerspoon
 if [ ! -d "$hammerspoon" ]; then
-  git clone git@github.com:kulynyak/hammerspoon.git
+  git clone git@github.com:kulynyak/hammerspoon.git $hammerspoon
+  ln -s $hammerspoon $u_dots/hammerspoon
 fi
 cd hammerspoon
 ./install.sh
 echo "hammerspoon installed"
-cd $z_dots
+cd $u_dots
 echo "installing nvim ..."
-nvim=$z_dots/nvim
+nvim=$u_dots/nvim
 if [ ! -d "$nvim" ]; then
   git clone git@github.com:kulynyak/nvim.git
 fi
 cd nvim
 /.install.sh
 echo "nvim installed"
-cd $z_dots
+cd $u_dots
 echo "installing Brewfile ..."
-brew bundle --file=$z_dots/brew/Brewfile
+brew bundle --file=$u_dots/brew/Brewfile
 echo "Brewfile installed"
