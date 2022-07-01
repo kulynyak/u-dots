@@ -1,6 +1,6 @@
 tmux/tmux
 hammerspoon
 brew/Brewfile.lock.json
-karabiner/karabiner/automatic_backups/*
-.vscode/*
+automatic_backups
+**/.vscode/*
 nvim

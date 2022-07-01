@@ -1,0 +1,9 @@
+#!/bin/bash
+eval "$(direnv hook bash)"
+CONFLUENT_VER="7.0.1"
+CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
+if [[ -d $CONFLUENT_BIN ]]; then
+    export PATH="$CONFLUENT_BIN:$PATH"
+fi
+unset CONFLUENT_BIN
+unset CONFLUENT_VER

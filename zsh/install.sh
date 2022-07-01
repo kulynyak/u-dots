@@ -9,7 +9,7 @@ brew install fzf
 brew install zsh-autosuggestions
 brew install zsh-history-substring-search
 brew install zsh-syntax-highlighting
-brew install zoxide
+brew install direnv
 
 ln -sfn $PWD/zlogin $HOME/.zlogin
 ln -sfn $PWD/zlogout $HOME/.zlogout
