@@ -133,6 +133,7 @@ alias vi='$EDITOR'
 alias vim='$EDITOR'
 alias svi='sudo nvim'
 alias snano='sudo nano'
+alias co='codium'
 
 alias x='exit'
 alias q='exit'

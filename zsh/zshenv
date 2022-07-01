@@ -173,9 +173,7 @@ NVM_DIR="$HOME/.nvm"
 # PERL_MB_OPT="--install_base \"/Users/akulynyak/perl5\""; export PERL_MB_OPT;
 # PERL_MM_OPT="INSTALL_BASE=/Users/akulynyak/perl5"; export PERL_MM_OPT;
 
-# the last one
-export PATH=".:$PATH"
-ulimit -n 1024
+
 
 # Ruckus
 # export RKSCLOUD="$HOME/work/ruckus/Repo/rks-cloud"
@@ -184,3 +182,9 @@ ulimit -n 1024
 CONFLUENT_VER="7.0.1"
 CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
 [[ -d $CONFLUENT_BIN ]] && PATH="$CONFLUENT_BIN:$PATH"
+unset CONFLUENT_VER
+unset CONFLUENT_BIN
+
+# the last one
+export PATH=".:$PATH"
+ulimit -n 1024
