@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
+# Darwin only
 
-if [ "x$__OS" != "xDarwin" ]; then
-  exit
+if test "$_OS" = "Darwin"; then
+  brew install karabiner-elements
+  ln -sfn "$PWD" "$HOME/.config/karabiner"
 fi
-
-brew install karabiner-elements
-ln -sfn $PWD $HOME/.config/karabiner
