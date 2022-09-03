@@ -19,10 +19,12 @@ fi
 unset X_NNN
 
 # maven
-M2="/usr/local/opt/maven"
-if [ -d "$M2" ]; then
-  export M2_HOME="$M2/libexec"
-  PATH="$M2/bin:$PATH"
+if command -v /usr/local/opt/maven &>/dev/null; then
+  M2="/usr/local/opt/maven"
+  if [ -d "$M2" ]; then
+    export M2_HOME="$M2/libexec"
+    PATH="$M2/bin:$PATH"
+  fi
 fi
 
 # bin in home dir
@@ -96,4 +98,3 @@ ulimit -n 1024
 
 # the last one
 export PATH=".:$PATH"
-
