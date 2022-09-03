@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-if [ "x$__OS" != "xDarwin" ]; then
-  exit
-fi
+# Darwin only
 
-brew install wezterm
-ln -sfn $PWD $HOME/.config/wezterm
+_OS=$(uname)
+
+if test "$_OS" = "Darwin"; then
+  brew install wezterm
+  ln -sfn "$PWD" "$HOME/.config/wezterm"
+fi
