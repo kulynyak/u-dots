@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if [ "x$__OS" != "xDarwin" ]; then
-  exit
-fi
+# Darwin only
 
-brew install kitty
-ln -sfn $PWD $HOME/.config/kitty
+_OS=$(uname)
+if test "$_OS" = "Darwin"; then
+  brew install kitty
+  ln -sfn "$PWD" "$HOME/.config/kitty"
+fi
