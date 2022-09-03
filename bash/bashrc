@@ -8,9 +8,11 @@ fi
 __OS=unsupported
 case $(uname) in
 Darwin)
-  export __OS=Darwin;;
+    export __OS=Darwin
+    ;;
 Linux)
-  [[ -f /etc/fedora-release ]] && export __OS=Fedora;;  
+    [[ -f /etc/fedora-release ]] && export __OS=Fedora
+    ;;
 esac
 export __OS
 
@@ -18,14 +20,13 @@ export __OS
 if ! [[ "$PATH" == *"$HOME/.local/bin:$HOME/bin"* ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
-PATH=${PATH}:`go env GOPATH`/bin
-
+PATH=${PATH}:$(go env GOPATH)/bin
 
 CONFLUENT_VER="7.3.1"
 CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
 if [[ -d $CONFLUENT_BIN ]]; then
     if ! [[ "$PATH" == *"$CONFLUENT_BIN"* ]]; then
-         PATH="$CONFLUENT_BIN:$PATH"
+        PATH="$CONFLUENT_BIN:$PATH"
     fi
 fi
 unset CONFLUENT_BIN
@@ -34,9 +35,11 @@ unset CONFLUENT_VER
 # asdf
 case "$__OS" in
 Darwin)
-    ASDF_LIB="$(brew --prefix asdf)/libexec";;
+    ASDF_LIB="$(brew --prefix asdf)/libexec"
+    ;;
 Fedora)
-    ASDF_LIB="$HOME/.asdf";;
+    ASDF_LIB="$HOME/.asdf"
+    ;;
 esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
@@ -46,16 +49,18 @@ unset ASDF_LIB
 # z.lua
 case "$__OS" in
 Darwin)
-    export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua";;
+    export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua"
+    ;;
 Fedora)
-    export Z_LUA_BIN="$HOME/.local/opt/z.lua";;   
+    export Z_LUA_BIN="$HOME/.local/opt/z.lua"
+    ;;
 esac
-if [ -f $Z_LUA_BIN ] ; then
-  export _ZL_DATA=$HOME/.local/share/zlua
-  export _ZL_ADD_ONCE=1
-  eval "$(lua $Z_LUA_BIN --init bash)"
-  alias j='z -i'
-  alias jf='z -I'
+if [ -f $Z_LUA_BIN ]; then
+    export _ZL_DATA=$HOME/.local/share/zlua
+    export _ZL_ADD_ONCE=1
+    eval "$(lua $Z_LUA_BIN --init bash)"
+    alias j='z -i'
+    alias jf='z -I'
 fi
 unset Z_LUA_BIN
 
@@ -66,7 +71,7 @@ unset Z_LUA_BIN
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
         if [ -f "$rc" ]; then
-                . "$rc"
+            . "$rc"
         fi
     done
 fi
@@ -79,4 +84,3 @@ alias vim='nvim'
 alias vi='nvim'
 
 export PATH
-
