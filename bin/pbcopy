@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+var="$(cat)"
+echo "$var" | xclip -selection clipboard
