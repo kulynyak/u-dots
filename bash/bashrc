@@ -1,5 +1,5 @@
 #!/bin/bash
-eval "$(direnv hook bash)"
+
 CONFLUENT_VER="7.3.1"
 CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
 if [[ -d $CONFLUENT_BIN ]]; then
@@ -10,3 +10,4 @@ unset CONFLUENT_VER
 
 ASDF_LIB="$(brew --prefix asdf)/libexec"
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"

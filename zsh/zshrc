@@ -497,9 +497,6 @@ zle -N prepend-sudo
 # defined shortcut keys: [Esc] [Esc]
 bindkey "\e\e" prepend-sudo
 
-# direnv
-eval "$(direnv hook zsh)"
-
 ASDF_LIB="$(brew --prefix asdf)/libexec"
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 
@@ -509,3 +506,4 @@ P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
