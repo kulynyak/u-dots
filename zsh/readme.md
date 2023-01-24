@@ -2,4 +2,4 @@
 
 Credits to Sorin Ionescu <sorin.ionescu@gmail.com>
 
-execute ```install.sh```
+execute `install.sh`

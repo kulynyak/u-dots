@@ -1,4 +1,8 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+
+if [ "x$__OS" != "xDarwin" ]; then
+  exit
+fi
 
 brew install rust
 ln -sfn $PWD/alacritty $HOME/.config/alacritty
