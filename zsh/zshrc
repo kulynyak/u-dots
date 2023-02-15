@@ -238,22 +238,6 @@ Fedora)
   ;;
 esac
 
-# alias docker='nerdctl'
-
-function myip() {
-# about 'displays your ip address, as seen by the Internet'
-  list=("http://myip.dnsomatic.com/" "http://checkip.dyndns.com/" "http://checkip.dyndns.org/")
-  for url in ${list[*]}; do
-      res=$(command curl -s "${url}")
-      if [ $? -eq 0 ]; then
-          break
-      fi
-  done
-  res=$(echo "$res" | grep -Eo '[0-9\.]+')
-  echo -e "Your public IP is: ${echo_bold_green} $res ${echo_normal}"
-}
-
-
 function lsgrep() {
   # about 'search through directory contents with grep'
   gls -l | grep -E -i "$*"
