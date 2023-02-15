@@ -82,5 +82,6 @@ alias x='exit'
 alias q='exit'
 alias vim='nvim'
 alias vi='nvim'
+alias n='nnn'
 
 export PATH

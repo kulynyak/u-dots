@@ -4,9 +4,14 @@ export LSCOLORS=GxFxCxDxBxegedabagaced # dark
 # export LSCOLORS=ExFxBxDxCxegedabagacad # light
 
 # Browser
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
+case "$__OS" in
+Darwin)
+    export BROWSER='open'
+    ;;
+Fedora)
+    export BROWSER='firefox'
+    ;;
+esac
 
 # Editors
 export EDITOR='nvim'

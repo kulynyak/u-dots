@@ -45,7 +45,7 @@ setopt share_history          # share command history data
 setopt hist_find_no_dups
 setopt hist_save_no_dups
 setopt hist_beep
-HISTORY_IGNORE='(cd ..|l|l[alsh]|less|lvim|vi|vim|hx|n|nnn|x|q|exit|zreload)'
+HISTORY_IGNORE='(cd ..|l|l[alsh]|less|nvim|vi|vim|hx|n|nnn|x|q|exit|zreload)'
 
 setopt +o nomatch
 
@@ -133,6 +133,7 @@ alias vi='$EDITOR'
 alias vim='$EDITOR'
 alias svi='sudo nvim'
 alias snano='sudo nano'
+alias n='nnn'
 
 alias x='exit'
 alias q='exit'
@@ -155,30 +156,87 @@ alias port='netstat -ntlp tcp' # opening ports
 
 alias pyshare='python3 -m http.server' # share current folder
 
-alias cat='gcat'
-
-alias head='ghead'
-
-alias zcat='gzcat'
-
 alias tailf='tail -f'
 
-alias rm-relocated='rm $HOME/Desktop/Relocated\ Items.nosync && rm /Users/Shared/Relocated\ Items'
-
-alias ypwd='pwd | pbcopy'
-
-alias lsbundleid="osascript -e \
-'on run args
-set output to {}
-repeat with param in args
-set end of output to id of app param
-end
-set text item delimiters to linefeed
-output as text
-end'"
-
 alias ip='ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '\''{print $2}'\'
-alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+
+case "$__OS" in
+Darwin)
+  alias cat='gcat'
+  alias head='ghead'
+  alias zcat='gzcat'
+  alias rm-relocated='rm $HOME/Desktop/Relocated\ Items.nosync && rm /Users/Shared/Relocated\ Items'
+  alias ypwd='pwd | pbcopy'
+  # dump brew packages
+  alias bbd='brew bundle dump --all --force --file=$HOME/z.dots/brew/Brewfile'
+  alias lsbundleid="osascript -e \
+  'on run args
+  set output to {}
+  repeat with param in args
+  set end of output to id of app param
+  end
+  set text item delimiters to linefeed
+  output as text
+  end'"
+  alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+  function up() {
+    # about 'update brew packages'
+    brew update
+    brew upgrade
+    brew cleanup
+    ls -l /usr/local/Homebrew/Library/Homebrew | grep homebrew-cask |
+      awk '{print $9}' | for evil_symlink in $(cat -); do rm -v /usr/local/Homebrew/Library/Homebrew/$evil_symlink; done
+    brew doctor
+  }
+
+  function up-cask() {
+    # about update outdated casks
+    OUTDATED=$(brew outdated --cask --greedy --verbose|sed -E '/latest/d'|awk '{print $1}' ORS=' '|tr -d '\n')
+    # OUTDATED=$(brew outdated --cask --verbose|sed -E '/latest/d'|awk '{print $1}' ORS=' '|tr -d '\n')
+    echo "outdated: $OUTDATED"
+    [[ ! -z "$OUTDATED" ]] && brew reinstall --cask ${=OUTDATED}
+  }
+
+  function pfd {
+  # displays the current Finder.app directory.
+  osascript 2> /dev/null <<EOF
+    tell application "Finder"
+      return POSIX path of (target of first window as text)
+    end tell
+EOF
+  }
+
+  function pfs {
+    # displays the current Finder.app selection.
+    osascript 2>&1 <<EOF
+      tell application "Finder" to set the_selection to selection
+      if the_selection is not {}
+        repeat with an_item in the_selection
+          log POSIX path of (an_item as text)
+        end repeat
+      end if
+EOF
+  }
+
+  function ql {
+    # previews files in Quick Look.
+    if (( $# > 0 )); then
+      qlmanage -p "$@" &> /dev/null
+    fi
+  }
+
+  # display notification
+  alias ndone='open -g "hammerspoon://task-completed?message=Done"'
+  # say
+  alias lmk="say 'Process complete'"
+  # "Done" notification
+  alias -g D="; ndone"
+  # "Done" notification with sound
+  alias -g SD="; ndone; lmk"
+  ;;
+Fedora)  
+  ;;
+esac
 
 # alias docker='nerdctl'
 
@@ -195,33 +253,6 @@ function myip() {
   echo -e "Your public IP is: ${echo_bold_green} $res ${echo_normal}"
 }
 
-function pfd {
-  # displays the current Finder.app directory.
-  osascript 2> /dev/null <<EOF
-    tell application "Finder"
-      return POSIX path of (target of first window as text)
-    end tell
-EOF
-}
-
-function pfs {
-  # displays the current Finder.app selection.
-  osascript 2>&1 <<EOF
-    tell application "Finder" to set the_selection to selection
-    if the_selection is not {}
-      repeat with an_item in the_selection
-        log POSIX path of (an_item as text)
-      end repeat
-    end if
-EOF
-}
-
-function ql {
-  # previews files in Quick Look.
-  if (( $# > 0 )); then
-    qlmanage -p "$@" &> /dev/null
-  fi
-}
 
 function lsgrep() {
   # about 'search through directory contents with grep'
@@ -286,42 +317,19 @@ function catt() {
   done
 }
 
-function up() {
-  # about 'update brew packages'
-  brew update
-  brew upgrade
-  brew cleanup
-  ls -l /usr/local/Homebrew/Library/Homebrew | grep homebrew-cask |
-    awk '{print $9}' | for evil_symlink in $(cat -); do rm -v /usr/local/Homebrew/Library/Homebrew/$evil_symlink; done
-  brew doctor
-}
-
-function up-cask() {
-  # about update outdated casks
-  OUTDATED=$(brew outdated --cask --greedy --verbose|sed -E '/latest/d'|awk '{print $1}' ORS=' '|tr -d '\n')
-  # OUTDATED=$(brew outdated --cask --verbose|sed -E '/latest/d'|awk '{print $1}' ORS=' '|tr -d '\n')
-  echo "outdated: $OUTDATED"
-  [[ ! -z "$OUTDATED" ]] && brew reinstall --cask ${=OUTDATED}
-}
-
-
 # fzf
-FZF_SHELL=/usr/local/opt/fzf/shell
+case "$__OS" in
+Darwin)
+    FZF_SHELL=/usr/local/opt/fzf/shell
+    ;;
+Fedora)
+    FZF_SHELL=/usr/share/fzf/shell
+    ;;
+esac
 # fzf auto-completion
 [[ -f "$FZF_SHELL/completion.zsh" ]] &&  source "$FZF_SHELL/completion.zsh" 2> /dev/null
 # fzf key bindings
 [[ -f "$FZF_SHELL/key-bindings.zsh" ]] && source "$FZF_SHELL/key-bindings.zsh" 2>/dev/null
-
-
-# display notification
-alias ndone='open -g "hammerspoon://task-completed?message=Done"'
-# say
-alias lmk="say 'Process complete'"
-# "Done" notification
-alias -g D="; ndone"
-# "Done" notification with sound
-alias -g SD="; ndone; lmk"
-
 
 # ssh agent
 if (( $+commands[ssh-agent] )); then
@@ -370,13 +378,20 @@ if (( $+commands[ssh-agent] )); then
   unset _ssh_{dir,identities} _ssh_agent_{env,sock}
 fi
 
-
+case "$__OS" in
+Darwin)
+    ZSH_STUFF=/usr/local/share
+    ;;
+Fedora)
+    ZSH_STUFF=/usr/share
+    ;;
+esac
 # syntax highliting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+[[ -f "$ZSH_STUFF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source $ZSH_STUFF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh autosuggestions
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh || return 1
+[[ -f "$ZSH_STUFF/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source $ZSH_STUFF/zsh-autosuggestions/zsh-autosuggestions.zsh || return 1
+
 # set highlight color, default 'fg=8'.
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 # key bindings
@@ -386,20 +401,21 @@ if [[ -n "$key_info" ]]; then
   bindkey -M viins "$key_info[Control]E" vi-add-eol
 fi
 
-
 # zsh history substring search
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+[[ -f "$ZSH_STUFF/zsh-history-substring-search/zsh-history-substring-search.zsh" ]] && source $ZSH_STUFF/zsh-history-substring-search/zsh-history-substring-search.zsh
 # key bindings
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-
-# zoxide
-# export _ZO_DATA_DIR=$HOME/.local/share
-# eval "$(zoxide init zsh)"
-
 # z.lua
-Z_LUA_BIN=/usr/local/opt/z.lua/share/z.lua/z.lua
+case "$__OS" in
+Darwin)
+    export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua"
+    ;;
+Fedora)
+    export Z_LUA_BIN="$HOME/.local/opt/z.lua/z.lua"
+    ;;
+esac
 if [ -f $Z_LUA_BIN ] ; then
   export _ZL_DATA=$HOME/.local/share/zlua
   export _ZL_ADD_ONCE=1
@@ -480,10 +496,6 @@ if (( $+commands[fzf] )); then
   bindkey '^x^g' fb # checkout git branch (ctrl+x,ctrl+g)
 fi
 
-
-# dump brew packages
-alias bbd='brew bundle dump --all --force --file=$HOME/z.dots/brew/Brewfile'
-
 # add sudo before command with esc+esc
 function prepend-sudo() {
   [[ -z $BUFFER ]] && zle up-history
@@ -497,13 +509,25 @@ zle -N prepend-sudo
 # defined shortcut keys: [Esc] [Esc]
 bindkey "\e\e" prepend-sudo
 
-ASDF_LIB="$(brew --prefix asdf)/libexec"
+case "$__OS" in
+Darwin)
+    ASDF_LIB="$(brew --prefix asdf)/libexec"
+    ;;
+Fedora)
+    ASDF_LIB="$HOME/.asdf"
+    ;;
+esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
-[[ -f $P10K_THEME ]] && source "$P10K_THEME"
+case "$__OS" in
+Darwin)
+    P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
+    ;;
+Fedora)
+    P10K_THEME=$HOME/.local/opt/powerlevel10k/powerlevel10k.zsh-theme
+    ;;
+esac
+
+[[ -f $P10K_THEME ]] && source "$P10K_THEME" 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"

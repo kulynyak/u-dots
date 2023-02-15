@@ -6,8 +6,8 @@ case $_OS in
 Darwin)
   brew install tmux
   ;;
-*)
-  sudo dnf install tmux
+Fedora)
+  sudo dnf -y install tmux
   ;;
 esac
 
