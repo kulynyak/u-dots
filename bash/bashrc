@@ -43,7 +43,7 @@ Fedora)
 esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
-[[ -f "${ASDF_LIB}/completions/asdf.bash" ]] && "${ASDF_LIB}/completions/asdf.bash"
+[[ -f "${ASDF_LIB}/completions/asdf.bash" ]] && source "${ASDF_LIB}/completions/asdf.bash"
 unset ASDF_LIB
 
 # z.lua
