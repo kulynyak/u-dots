@@ -1,6 +1,6 @@
 [user]
-	name = Andriy Kulynyak
-	email = kulynyak@gmail.com
+name = Andriy Kulynyak
+email = kulynyak@gmail.com
 
 [push]
 default = simple
@@ -83,12 +83,12 @@ lsauc = !sh -c 'git ls-files -v | grep --color=auto \"^[[:lower:]]\"'
 # Open edited files
 v = !$EDITOR $(git diff --name-only)
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+path =
 [mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+trustExitCode = true
 [core]
-	excludesfile = /Users/akulynyak/.gitignore_global
+excludesfile = /Users/akulynyak/.gitignore_global
 [commit]
-	template = /Users/akulynyak/.stCommitMsg
+template = /Users/akulynyak/.stCommitMsg

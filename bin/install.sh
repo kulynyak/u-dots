@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
+__OS=unsupported
+case $(uname) in
+Darwin)
+    export __OS=Darwin
+    ;;
+Linux)
+    [[ -f /etc/fedora-release ]] && export __OS=Fedora
+    ;;
+esac
+export __OS
+
 # Linux only
 
-_OS=$(uname)
-
-if test "$_OS" = "Linux"; then
-    sudo dnf install xclip
+if test "$__OS" = "Fedora"; then
+    sudo dnf install -y xclip
 
     H_BIN="$HOME/.local/bin"
     mkdir -p "$H_BIN"

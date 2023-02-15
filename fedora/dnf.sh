@@ -14,10 +14,9 @@ sudo dnf install -y lame\* --exclude=lame-devel
 sudo dnf group upgrade -y --with-optional Multimedia --allowerasing
 sudo dnf autoremove -y
 
-
 # install common packages
-sudo dnf install -y neofetch 
-sudo dnf install -y inxi 
+sudo dnf install -y neofetch
+sudo dnf install -y inxi
 sudo dnf install -y htop
 sudo dnf install -y gnome-tweaks
 sudo dnf install -y fish
@@ -39,8 +38,8 @@ sudo dnf install -y google-chrome-stable
 # asdf
 rm -rf ~/.asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
-sudo dnf install -y dnf-plugins-core 
-sudo dnf builddep -y python3  
+sudo dnf install -y dnf-plugins-core
+sudo dnf builddep -y python3
 
 # zsh-powerline
 rm -rf ~/.local/opt/powerlevel10k
@@ -56,13 +55,13 @@ mkdir -p ~/.local/opt
 git clone https://github.com/skywind3000/z.lua.git ~/.local/opt/z.lua
 
 # nvim
-sudo dnf -y copr enable atim/bottom 
+sudo dnf -y copr enable atim/bottom
 sudo dnf install -y bottom
 sudo dnf -y copr enable atim/lazygit
 sudo dnf install -y lazygit
 sudo dnf install -y go
 go install github.com/dundee/gdu/v5/cmd/gdu@latest
-sudo dnf install -y ripgrep 
+sudo dnf install -y ripgrep
 
 # vscode
 cat <<EOF | sudo tee /etc/yum.repos.d/vscode.repo
@@ -75,11 +74,7 @@ gpgkey=https://packages.microsoft.com/keys/microsoft.asc
 EOF
 dnf check-update -y
 sudo dnf install -y code
-                                                                                                                       | 2023-01-20 18:11 | Install        |    1                                                                                                                              | 2023-01-20 17:44 | Install        |    1
-                                                                                                                                 | 2023-01-20 17:30 | Install        |   10 >
-                                                                                                                                 | 2023-01-20 17:26 | Install        |    1
-                                                                                                                             | 2023-01-20 16:55 | Install        |    1  <
-                                                                                                                        | 2023-01-20 14:01 | Install        |    1 >
+
 # cleanup
 sudo dnf update -y
 sudo dnf autoremove -y

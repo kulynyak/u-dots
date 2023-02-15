@@ -1,5 +1,16 @@
 #!/usr/bin/env zsh
 
+__OS=unsupported
+case $(uname) in
+Darwin)
+    export __OS=Darwin
+    ;;
+Linux)
+    [[ -f /etc/fedora-release ]] && export __OS=Fedora
+    ;;
+esac
+export __OS
+
 case "$__OS" in
 Darwin)
     brew install fortune

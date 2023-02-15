@@ -11,10 +11,10 @@ Linux)
 esac
 export __OS
 
-# Darwin only
+# Fedora only
 
-_OS=$(uname)
-if test "$__OS" = "Darwin"; then
-  brew install kitty
-  ln -sfn "$PWD" "$HOME/.config/kitty"
+if test "$__OS" = "Fedora"; then
+  ./dnf.sh
+  ./flatpak.sh
+  ./services.sh
 fi

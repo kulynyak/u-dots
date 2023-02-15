@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
-# Darwin only
+__OS=unsupported
+case $(uname) in
+Darwin)
+  export __OS=Darwin
+  ;;
+Linux)
+  [[ -f /etc/fedora-release ]] && export __OS=Fedora
+  ;;
+esac
+export __OS
 
-_OS=$(uname)
-if test "$_OS" = "Darwin"; then
+# Darwin only
+if test "$__OS" = "Darwin"; then
   brew install rust
 
   ln -sfn "$PWD/alacritty" "$HOME/.config/alacritty"
