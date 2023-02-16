@@ -18,6 +18,7 @@ for i in "${inst_items[@]}"; do
   echo "$i installed"
   cd "$u_dots"
 done
+
 echo "installing hammerspoon ..."
 hammerspoon=$HOME/.hammerspoon
 if [ ! -d "$hammerspoon" ]; then
@@ -33,6 +34,7 @@ nvim=$u_dots/nvim
 if [ ! -d "$nvim" ]; then
   git clone git@github.com:kulynyak/nvim.git
 fi
+
 cd nvim
 /.install.sh
 echo "nvim installed"

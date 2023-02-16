@@ -3,5 +3,4 @@ hammerspoon
 brew/Brewfile.lock.json
 automatic_backups
 **/.vscode/*
-nvim
 **/*.log
