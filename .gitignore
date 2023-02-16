@@ -5,3 +5,4 @@ automatic_backups
 **/.vscode/*
 **/*.log
 nvim
+fish
