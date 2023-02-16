@@ -14,6 +14,7 @@ export __OS
 # Fedora only
 
 if test "$__OS" = "Fedora"; then
+  ./fonts.sh
   ./dnf.sh
   ./flatpak.sh
   ./services.sh
