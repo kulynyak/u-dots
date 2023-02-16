@@ -18,4 +18,5 @@ if test "$__OS" = "Fedora"; then
   ./dnf.sh
   ./flatpak.sh
   ./services.sh
+  ./snap.sh
 fi

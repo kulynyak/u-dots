@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-inst_items=('fedora' 'git' 'tmux' 'zsh')
+inst_items=('fedora' 'git' 'tmux' 'zsh' 'astronvim')
 u_dots=$PWD
 for i in "${inst_items[@]}"; do
   echo "installing $i ..."

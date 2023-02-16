@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 flatpak update
 
 sudo flatpak install flathub com.github.tchx84.Flatseal

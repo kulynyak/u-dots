@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # ssh
 sudo firewall-cmd --zone=public --permanent --add-service=ssh
 sudo firewall-cmd --reload

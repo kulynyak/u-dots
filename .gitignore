@@ -4,3 +4,4 @@ brew/Brewfile.lock.json
 automatic_backups
 **/.vscode/*
 **/*.log
+nvim
