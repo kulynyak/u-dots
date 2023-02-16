@@ -17,6 +17,7 @@ Darwin)
     ;;
 Fedora)
     sudo dnf install -y fish
+    sudo dnf install -y util-linux-user
     ;;
 *)
     echo "Unknown OS"
