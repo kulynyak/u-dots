@@ -515,3 +515,4 @@ esac
 
 [[ -f $P10K_THEME ]] && source "$P10K_THEME" 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"

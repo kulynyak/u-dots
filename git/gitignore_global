@@ -12,7 +12,7 @@
 **/.settings
 **/.Spotlight-V100
 **/.Trashes
-**/.vscode
+/* **/.vscode */
 **/*.iml
 **/*.ipr
 **/*.iws

@@ -1,6 +1,7 @@
 [user]
 name = Andriy Kulynyak
-email = kulynyak@gmail.com
+email = ra997716635@gmail.com
+; email = kulynyak@gmail.com
 
 [push]
 default = simple
@@ -85,10 +86,7 @@ v = !$EDITOR $(git diff --name-only)
 [difftool "sourcetree"]
 cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 path =
-[mergetool "sourcetree"]
-cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-trustExitCode = true
 [core]
-excludesfile = /Users/akulynyak/.gitignore_global
+excludesfile = /home/ra/.gitignore_global
 [commit]
-template = /Users/akulynyak/.stCommitMsg
+template = /home/ra/.stCommitMsg
