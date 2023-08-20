@@ -4,7 +4,6 @@
 **/.AppleDouble
 **/.classpath
 **/.factorypath
-**/.idea
 **/.in
 **/.LSOverride
 **/.out
@@ -12,7 +11,6 @@
 **/.settings
 **/.Spotlight-V100
 **/.Trashes
-/* **/.vscode */
 **/*.iml
 **/*.ipr
 **/*.iws
@@ -34,7 +32,10 @@
 **/target
 **/test-output
 **/velocity.log
-\#*\#
-x-dev/**
 **/tags
 **/.scannerwork
+**/__pycache__
+# custom 
+**/docker-compose.ra*.y*ml
+**/.envrc*
+**/.buildt

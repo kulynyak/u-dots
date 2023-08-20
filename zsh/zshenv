@@ -14,8 +14,6 @@ Linux)
 esac
 export __OS
 
-# PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-
 # bin in home dir
 HOME_BIN="$HOME/bin"
 [[ -d $HOME_BIN ]] && PATH="$HOME_BIN:$PATH"
@@ -31,40 +29,33 @@ Darwin)
   [[ -f $HOMEBREW_GITHUB_API_TOKEN_PATH ]] && export HOMEBREW_GITHUB_API_TOKEN=$(<$HOMEBREW_GITHUB_API_TOKEN_PATH)
   export HOMEBREW_CASK_OPTS=--no-quarantine
   export HOMEBREW_NO_ENV_HINTS=1
-  # hombrew sbin
-  BREW_SBIN=/usr/local/sbin
-  [[ -d $BREW_SBIN ]] && PATH="$BREW_SBIN:$PATH"
 
-  # hombrew sbin
-  BREW_SBIN=/usr/opt/sbin
-  [[ -d $BREW_SBIN ]] && PATH="$BREW_SBIN:$PATH"
-
+  # hombrew sbin/bin
+  BREW_SBIN=/opt/homebrew/sbin
+  BREW_BIN=/opt/homebrew/bin
+  PATH="$BREW_BIN:$BREW_SBIN:$PATH"
+  
   ## gnu coreutils
   GNU_BIN=$(brew --prefix coreutils)/bin
   [[ -d "$GNU_BIN" ]] && PATH="$PATH:$GNU_BIN"
 
   # gnu findutils
-  BIN_FIND_GNU="/usr/local/opt/findutils/bin"
+  BIN_FIND_GNU="$(brew --prefix findutils)/bin"
   [[ -d $BIN_FIND_GNU ]] && PATH="$BIN_FIND_GNU:$PATH"
 
   # gnu man
-  MANPATH_GNU="/usr/local/opt/findutils/libexec/gnuman"
+  MANPATH_GNU="$(brew --prefix findutils)/libexec/gnuman"
   [[ -d $MANPATH_GNU ]] && export MANPATH="$MANPATH_GNU:$MANPATH"
 
   # gettext
-  GETTXT="/usr/local/opt/gettext"
+  GETTXT="$(brew --prefix gettext)"
   if [ -d "$GETTXT" ]; then
     export LDFLAGS="$LDFLAGS -L$GETTXT/lib"
     export CPPFLAGS="$CPPFLAGS -I$GETTXT/include"
     PATH="$GETTXT/bin:${PATH}"
   fi
-
-  # curl
-  CURLP="/usr/local/opt/curl-openssl/bin"
-  [[ -d $CURLP ]] && PATH="$CURLP:$PATH"
   ;;
 Fedora) ;;
-
 esac
 
 # nnn
@@ -84,15 +75,16 @@ fi
 # disable to run Firefox in safe mode
 export MOZ_DISABLE_SAFE_MODE_KEY="never"
 
-# misc
-# PATH="$PATH:$HOME/hacker1/xsser"
-
 # confluent
 CONFLUENT_VER="7.3.1"
 CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
 [[ -d $CONFLUENT_BIN ]] && PATH="$CONFLUENT_BIN:$PATH"
 unset CONFLUENT_VER
 unset CONFLUENT_BIN
+
+# pnpm
+PNPM_GLOB_BIN=$HOME/.local/share/pnpm/g-bin
+[[ -d $_GLOB_BIN ]] && PATH="$PNPM_GLOB_BIN:$PATH"
 
 # export USER_ID=$(id -u $USER)
 
@@ -103,3 +95,14 @@ export PATH=".:$PATH"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
+. "$HOME/.cargo/env"
+
+# GStreamer
+GST_ENV_PATH=$(realpath "/Library/Frameworks/GStreamer.framework/Versions/Current/share/gstreamer/gst-env" 2>/dev/null)
+[[ -f "$GST_ENV_PATH" ]] && . "$GST_ENV_PATH"
+export GST_DEBUG=2
+export GST_PLUGIN_PATH="$HOME/.local/lib/gstreamer-1.0:$GST_PLUGIN_PATH"
+
+# Docker
+DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
+[[ -d $DOCKER_PATH ]] && PATH="$DOCKER_PATH:$PATH"

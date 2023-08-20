@@ -45,7 +45,7 @@ setopt share_history          # share command history data
 setopt hist_find_no_dups
 setopt hist_save_no_dups
 setopt hist_beep
-HISTORY_IGNORE='(cd ..|l|l[alsh]|less|nvim|vi|vim|hx|n|nnn|x|q|exit|zreload)'
+HISTORY_IGNORE='(cd ..|l|l[alsh]|less|lvim|nvim|vi|vim|hx|n|nnn|x|q|exit|zreload)'
 
 setopt +o nomatch
 
@@ -133,7 +133,7 @@ alias vi='$EDITOR'
 alias vim='$EDITOR'
 alias svi='sudo nvim'
 alias snano='sudo nano'
-alias n='nnn'
+alias n='nnn -d -e -H -r'
 
 alias x='exit'
 alias q='exit'
@@ -152,13 +152,35 @@ alias pgrep='pgrep -f'
 
 alias pkill='pkill -9 -f'
 
-alias port='netstat -ntlp tcp' # opening ports
+alias oport='netstat -ntlp tcp' # opened ports
+
+alias port='(){ sudo lsof -i -P | grep LISTEN | grep :$1. ;}'
 
 alias pyshare='python3 -m http.server' # share current folder
 
 alias tailf='tail -f'
 
 alias ip='ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '\''{print $2}'\'
+
+alias ipe='wget -qO - http://ipecho.net/plain; echo'
+
+# docker
+# docker() {
+#   if [[ $1 == "build" ]]; then
+#     if [[ -n $REGISTRY ]]; then
+#       command docker build --build-arg=REGISTRY=$REGISTRY "${@:2}"
+#     else
+#       command docker build "${@:2}"
+#     fi
+#   else
+#     command docker "$@"
+#   fi
+# }
+
+
+# docker compose
+alias dcr='docker compose -f ./docker-compose.ra-rc.yaml $*'
+alias dcm='docker compose $*'
 
 case "$__OS" in
 Darwin)
@@ -184,8 +206,8 @@ Darwin)
     brew update
     brew upgrade
     brew cleanup
-    ls -l /usr/local/Homebrew/Library/Homebrew | grep homebrew-cask |
-      awk '{print $9}' | for evil_symlink in $(cat -); do rm -v /usr/local/Homebrew/Library/Homebrew/$evil_symlink; done
+    ls -l $(brew --prefix)/Library/Homebrew | grep homebrew-cask |
+      awk '{print $9}' | for evil_symlink in $(cat -); do rm -v $(brew --prefix)/Library/Homebrew/$evil_symlink; done
     brew doctor
   }
 
@@ -304,7 +326,7 @@ function catt() {
 # fzf
 case "$__OS" in
 Darwin)
-    FZF_SHELL=/usr/local/opt/fzf/shell
+    FZF_SHELL=$(brew --prefix)/opt/fzf/shell
     ;;
 Fedora)
     FZF_SHELL=/usr/share/fzf/shell
@@ -364,7 +386,7 @@ fi
 
 case "$__OS" in
 Darwin)
-    ZSH_STUFF=/usr/local/share
+    ZSH_STUFF=$(brew --prefix)/share
     ;;
 Fedora)
     ZSH_STUFF=/usr/share
@@ -493,15 +515,13 @@ zle -N prepend-sudo
 # defined shortcut keys: [Esc] [Esc]
 bindkey "\e\e" prepend-sudo
 
-case "$__OS" in
-Darwin)
-    ASDF_LIB="$(brew --prefix asdf)/libexec"
-    ;;
-Fedora)
-    ASDF_LIB="$HOME/.asdf"
-    ;;
-esac
-[[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
+alias chromed='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222&'
+
+
+# ffmpeg
+alias ffprobe='ffprobe -hide_banner'
+alias ffplay='ffplay -hide_banner'
+alias ffmpeg='ffmpeg -hide_banner'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 case "$__OS" in
@@ -514,5 +534,17 @@ Fedora)
 esac
 
 [[ -f $P10K_THEME ]] && source "$P10K_THEME" 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+case "$__OS" in
+Darwin)
+    ASDF_LIB="$(brew --prefix asdf)/libexec"
+    ;;
+Fedora)
+    ASDF_LIB="$HOME/.asdf"
+    ;;
+esac
+[[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
+
+source ~/.homebrew-token
+
+eval "$(direnv hook zsh)"

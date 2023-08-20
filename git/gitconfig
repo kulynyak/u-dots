@@ -83,10 +83,4 @@ ac = update-index --no-assume-unchanged
 lsauc = !sh -c 'git ls-files -v | grep --color=auto \"^[[:lower:]]\"'
 # Open edited files
 v = !$EDITOR $(git diff --name-only)
-[difftool "sourcetree"]
-cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-path =
-[core]
-excludesfile = /home/ra/.gitignore_global
-[commit]
-template = /home/ra/.stCommitMsg
+

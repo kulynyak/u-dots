@@ -2,32 +2,33 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+  . /etc/bashrc
 fi
 
 __OS=unsupported
 case $(uname) in
 Darwin)
-    export __OS=Darwin
-    ;;
+  export __OS=Darwin
+  ;;
 Linux)
-    [[ -f /etc/fedora-release ]] && export __OS=Fedora
-    ;;
+  [[ -f /etc/fedora-release ]] && export __OS=Fedora
+  ;;
 esac
 export __OS
 
 # User specific environment
 if ! [[ "$PATH" == *"$HOME/.local/bin:$HOME/bin"* ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+  PATH="$HOME/.local/bin:$PATH"
 fi
-PATH=${PATH}:$(go env GOPATH)/bin
+
+# PATH=${PATH}:$(go env GOPATH)/bin
 
 CONFLUENT_VER="7.3.1"
 CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
 if [[ -d $CONFLUENT_BIN ]]; then
-    if ! [[ "$PATH" == *"$CONFLUENT_BIN"* ]]; then
-        PATH="$CONFLUENT_BIN:$PATH"
-    fi
+  if ! [[ "$PATH" == *"$CONFLUENT_BIN"* ]]; then
+    PATH="$CONFLUENT_BIN:$PATH"
+  fi
 fi
 unset CONFLUENT_BIN
 unset CONFLUENT_VER
@@ -35,32 +36,31 @@ unset CONFLUENT_VER
 # asdf
 case "$__OS" in
 Darwin)
-    ASDF_LIB="$(brew --prefix asdf)/libexec"
-    ;;
+  ASDF_LIB="$(brew --prefix asdf)/libexec"
+  ;;
 Fedora)
-    ASDF_LIB="$HOME/.asdf"
-    ;;
+  ASDF_LIB="$HOME/.asdf"
+  ;;
 esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
-[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
 [[ -f "${ASDF_LIB}/completions/asdf.bash" ]] && source "${ASDF_LIB}/completions/asdf.bash"
 unset ASDF_LIB
 
 # z.lua
 case "$__OS" in
 Darwin)
-    export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua"
-    ;;
+  export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua"
+  ;;
 Fedora)
-    export Z_LUA_BIN="$HOME/.local/opt/z.lua"
-    ;;
+  export Z_LUA_BIN="$HOME/.local/opt/z.lua"
+  ;;
 esac
 if [ -f $Z_LUA_BIN ]; then
-    export _ZL_DATA=$HOME/.local/share/zlua
-    export _ZL_ADD_ONCE=1
-    eval "$(lua $Z_LUA_BIN --init bash)"
-    alias j='z -i'
-    alias jf='z -I'
+  export _ZL_DATA=$HOME/.local/share/zlua
+  export _ZL_ADD_ONCE=1
+  eval "$(lua $Z_LUA_BIN --init bash)"
+  alias j='z -i'
+  alias jf='z -I'
 fi
 unset Z_LUA_BIN
 
@@ -69,19 +69,24 @@ unset Z_LUA_BIN
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
-    done
+  for rc in ~/.bashrc.d/*; do
+    if [ -f "$rc" ]; then
+      . "$rc"
+    fi
+  done
 fi
 unset rc
 
 alias zreload='exec bash'
 alias x='exit'
 alias q='exit'
-alias vim='nvim'
-alias vi='nvim'
-alias n='nnn'
+alias vim='lvim'
+alias vi='lvim'
+alias n='nnn -d -e -H -r'
 
 export PATH
+eval "$(direnv hook bash)"
+# Fuzzy history search with fzf
+fh() {
+    history | fzf +s --tac | sed 's/ *[0-9]* *//'
+}
