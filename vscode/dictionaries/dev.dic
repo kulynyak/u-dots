@@ -1,3 +1,4 @@
+acked
 acodec
 adminjs
 adtstoasc
@@ -11,6 +12,8 @@ Blrt
 bson
 bufsize
 bytesio
+camctl
+cleanenv
 codegpt
 copytb
 copyts
@@ -21,7 +24,10 @@ dartz
 Debugf
 dflt
 docsrs
+donot
+dont
 dport
+dprint
 drwx
 drwxr
 dsphere
@@ -34,12 +40,19 @@ fflags
 Fira
 forlagshuset
 fvhdl
+genqlient
 Getx
+gochannel
 golevelup
+gonic
+gopls
+gqlc
+gqlclient
 grng
 highlighed
 hwaccel
 ICEUDP
+ilyakaznacheev
 inet
 Infof
 ISAPI
@@ -61,6 +74,7 @@ Morganz
 movflags
 mpegts
 msecs
+Msgf
 Mykhailo
 nestjs
 nesw
@@ -79,6 +93,7 @@ otlp
 Packetizer
 pids
 pino
+plantuml
 POINTOPOINT
 pprof
 pprtmp
@@ -107,6 +122,7 @@ rvest
 samber
 Schyler
 senw
+serde
 sidc
 SIGNIN
 SIGNUP
@@ -116,6 +132,7 @@ sourcefd
 SSID
 streadway
 streamid
+stretchr
 stylua
 swne
 syscall
@@ -127,6 +144,7 @@ todos
 Tracef
 uavid
 uavs
+ucconfiguredcameras
 unflatten
 unpacketizer
 unparse
@@ -136,6 +154,7 @@ vcodec
 VDEPTH
 vezha
 vezhadev
+vsicons
 wasi
 Webrtc
 wezterm

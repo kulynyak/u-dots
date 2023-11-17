@@ -3,6 +3,15 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced # dark
 # export LSCOLORS=ExFxBxDxCxegedabagacad # light
 
+# config home
+# case "$__OS" in 
+# Darwin)
+#   export XDG_CONFIG_HOME=$HOME/.config
+#   export XDG_DATA_HOME=$HOME/.local/share
+#   export XDG_CACHE_HOME=$HOME/.cache
+#   ;;
+# esac
+
 # Brew
 case "$__OS" in
 Darwin)
@@ -13,16 +22,16 @@ esac
 # Browser
 case "$__OS" in
 Darwin)
-    export BROWSER='open'
-    ;;
+  export BROWSER='open'
+  ;;
 Fedora)
-    export BROWSER='firefox'
-    ;;
+  export BROWSER='firefox'
+  ;;
 esac
 
 # Editors
-export EDITOR='lvim'
-export VISUAL='lvim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 # Language
@@ -61,10 +70,12 @@ fi
 # asdf
 case "$__OS" in
 Darwin)
-    source $(brew --prefix)/opt/asdf/libexec/asdf.sh
-    ;;
+  source $(brew --prefix)/opt/asdf/libexec/asdf.sh
+  ;;
 Fedora)
-    # 
-    ;;
+  # 
+  ;;
 esac
 
+# Add .NET Core SDK tools
+export PATH="$PATH:/Users/ra/.dotnet/tools"

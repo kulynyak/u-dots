@@ -84,3 +84,9 @@ lsauc = !sh -c 'git ls-files -v | grep --color=auto \"^[[:lower:]]\"'
 # Open edited files
 v = !$EDITOR $(git diff --name-only)
 
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

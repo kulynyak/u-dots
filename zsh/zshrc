@@ -1,9 +1,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # history wrapper
 function omz_history {
@@ -181,6 +181,9 @@ alias ipe='wget -qO - http://ipecho.net/plain; echo'
 # docker compose
 alias dcr='docker compose -f ./docker-compose.ra-rc.yaml $*'
 alias dcm='docker compose $*'
+
+# aws cred
+alias mfa='$HOME/.aws/aws_mfa_temp_developers.sh' 
 
 case "$__OS" in
 Darwin)
@@ -524,14 +527,14 @@ alias ffplay='ffplay -hide_banner'
 alias ffmpeg='ffmpeg -hide_banner'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-case "$__OS" in
-Darwin)
-    P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
-    ;;
-Fedora)
-    P10K_THEME=$HOME/.local/opt/powerlevel10k/powerlevel10k.zsh-theme
-    ;;
-esac
+# case "$__OS" in
+# Darwin)
+#     P10K_THEME=$(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
+#     ;;
+# Fedora)
+#     P10K_THEME=$HOME/.local/opt/powerlevel10k/powerlevel10k.zsh-theme
+#     ;;
+# esac
 
 [[ -f $P10K_THEME ]] && source "$P10K_THEME" 
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
@@ -548,3 +551,11 @@ esac
 source ~/.homebrew-token
 
 eval "$(direnv hook zsh)"
+
+
+# last line
+eval "$(starship init zsh)"
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/ra/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# alias docker=nerdctl

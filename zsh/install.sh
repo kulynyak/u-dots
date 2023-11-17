@@ -17,14 +17,14 @@ Darwin)
     brew install lolcat
     brew install trash
     brew install coreutils
-    brew install romkatv/powerlevel10k/powerlevel10k
+    # brew install romkatv/powerlevel10k/powerlevel10k
     brew install fzf
     brew install zsh-autosuggestions
     brew install zsh-history-substring-search
     brew install zsh-syntax-highlighting
     ;;
 Fedora)
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.local/opt/powerlevel10k
+    # git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.local/opt/powerlevel10k
     sudo dnf install -y fortune-mod
     sudo dnf install -y lolcat
     sudo dnf install -y trash-cli

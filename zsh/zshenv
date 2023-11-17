@@ -106,3 +106,10 @@ export GST_PLUGIN_PATH="$HOME/.local/lib/gstreamer-1.0:$GST_PLUGIN_PATH"
 # Docker
 DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
 [[ -d $DOCKER_PATH ]] && PATH="$DOCKER_PATH:$PATH"
+
+
+# export CPATH=/opt/homebrew/include/hunspell:$CPATH
+export LIBRARY_PATH=/opt/homebrew/lib:$LIBRARY_PATH
+# export CGO_CFLAGS="-I/opt/homebrew/include/hunspell"
+
+export PATH=$(go env GOPATH)/bin:$PATH

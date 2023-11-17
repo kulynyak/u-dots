@@ -6,3 +6,4 @@ automatic_backups
 **/*.log
 nvim
 fish
+**/.DS_Store
