@@ -43,3 +43,4 @@ ln -sfn $PWD/zlogout $HOME/.zlogout
 ln -sfn $PWD/zprofile $HOME/.zprofile
 ln -sfn $PWD/zshenv $HOME/.zshenv
 ln -sfn $PWD/zshrc $HOME/.zshrc
+ln -sfn $PWD/zshrc.d $HOME/.zshrc.d

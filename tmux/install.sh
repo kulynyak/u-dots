@@ -21,6 +21,7 @@ Fedora)
 esac
 
 ln -sfn "$PWD" "$HOME/.config/tmux"
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# ln -sfn "$PWD"/tmux.conf "$HOME/.tmux.conf"
+if [ ! -d "$PWD/plugins/tpm" ]; then
+	git clone https://github.com/tmux-plugins/tpm $PWD/plugins/tpm
 fi

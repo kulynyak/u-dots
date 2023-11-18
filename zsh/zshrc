@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # history wrapper
 function omz_history {
   local clear list
@@ -100,6 +93,16 @@ else
 	compinit -C;
 fi;
 
+# User specific aliases and functions
+if [ -d ~/.zshrc.d ]; then
+	for rc in ~/.zshrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
+unset rc
+
 # global aliases
 globalias() {
   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
@@ -163,24 +166,6 @@ alias tailf='tail -f'
 alias ip='ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '\''{print $2}'\'
 
 alias ipe='wget -qO - http://ipecho.net/plain; echo'
-
-# docker
-# docker() {
-#   if [[ $1 == "build" ]]; then
-#     if [[ -n $REGISTRY ]]; then
-#       command docker build --build-arg=REGISTRY=$REGISTRY "${@:2}"
-#     else
-#       command docker build "${@:2}"
-#     fi
-#   else
-#     command docker "$@"
-#   fi
-# }
-
-
-# docker compose
-alias dcr='docker compose -f ./docker-compose.ra-rc.yaml $*'
-alias dcm='docker compose $*'
 
 # aws cred
 alias mfa='$HOME/.aws/aws_mfa_temp_developers.sh' 
@@ -536,8 +521,6 @@ alias ffmpeg='ffmpeg -hide_banner'
 #     ;;
 # esac
 
-[[ -f $P10K_THEME ]] && source "$P10K_THEME" 
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 case "$__OS" in
 Darwin)
     ASDF_LIB="$(brew --prefix asdf)/libexec"
@@ -548,14 +531,11 @@ Fedora)
 esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 
+alias vi="NVIM_APPNAME=LazyVim nvim"
+
 source ~/.homebrew-token
 
 eval "$(direnv hook zsh)"
 
-
 # last line
 eval "$(starship init zsh)"
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/ra/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-# alias docker=nerdctl
