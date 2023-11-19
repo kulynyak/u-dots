@@ -8,8 +8,8 @@ M.ui = {
   theme = "catppuccin",
   theme_toggle = { "catppuccin", "one_light" },
 
-  -- hl_override = highlights.override,
-  -- hl_add = highlights.add,
+  hl_override = highlights.override,
+  hl_add = highlights.add,
 }
 
 M.plugins = "custom.plugins"
