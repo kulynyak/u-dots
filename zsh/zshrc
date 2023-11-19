@@ -263,8 +263,8 @@ function buf() {
   # about 'back up file with timestamp'
   # param 'filename'
   local filename=$1
-  local filetime=$(date +%Y%m%d_%H%M%S)
-  cp -a "${filename}" "${filename}_${filetime}"
+  local filetime=$(date +%Y-%m-%d-%H-%M-%S)
+  cp -a "${filename}" "${filename}-${filetime}"
 }
 
 function explain() {
@@ -532,6 +532,8 @@ esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 
 alias vi="NVIM_APPNAME=LazyVim nvim"
+
+bindkey -s ^x^x "clear\n"
 
 source ~/.homebrew-token
 
