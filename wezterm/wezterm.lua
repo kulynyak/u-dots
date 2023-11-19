@@ -1,11 +1,12 @@
 local wezterm = require("wezterm")
+
 wezterm.log_info("Config file " .. wezterm.config_file)
+
 wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
 	local zoomed = ""
 	if tab.active_pane.is_zoomed then
 		zoomed = "[Z] "
 	end
-
 	local index = ""
 	if #tabs > 1 then
 		index = string.format("[%d/%d] ", tab.tab_index + 1, #tabs)
@@ -14,22 +15,53 @@ wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
 	return zoomed .. index .. tab.active_pane.title
 end)
 
--- wezterm.on("update-right-status", function(window, pane)
---     local date = wezterm.strftime("%Y-%m-%d %H:%M:%S");
+-- Define your light and dark color schemes
+local light_schemes = { "Catppuccin Latte" }
+local dark_schemes = { "Catppuccin Mocha", "Catppuccin Macchiato", "Catppuccin Frappe" }
 
---     -- Make it italic and underlined
---     window:set_right_status(wezterm.format({{
---         Attribute = {
---             Underline = "Single"
---         }
---     }, {
---         Attribute = {
---             Italic = true
---         }
---     }, {
---         Text = "Hello " .. date
---     }}));
--- end);
+-- Variables to keep track of the current scheme index
+local light_scheme = "Catppuccin Latte"
+local dark_scheme = "Catppuccin Frappe"
+local default_scheme = "Catppuccin Frappe"
+
+-- Function to set color scheme
+function set_color_scheme(window, scheme_name)
+	wezterm.log_info("Set colorscheme to '" .. scheme_name .. "'")
+	local overrides = window:get_config_overrides() or {}
+	-- Check if the scheme is in the light schemes list
+	if table_contains(light_schemes, scheme_name) then
+		overrides.cursor_fg_color = "black"
+	-- Check if the scheme is in the dark schemes list
+	elseif table_contains(dark_schemes, scheme_name) then
+		overrides.cursor_fg_color = "white"
+	end
+	-- Apply the color scheme with cursor color overrides
+	overrides.color_scheme = scheme_name
+	window:set_config_overrides(overrides)
+end
+
+-- Helper function to check if a table contains a value
+function table_contains(tbl, element)
+	for _, value in pairs(tbl) do
+		if value == element then
+			return true
+		end
+	end
+	return false
+end
+
+-- Function to toggle the light color scheme
+function toggle_light_scheme(window)
+	set_color_scheme(window, light_scheme)
+end
+
+-- Function to toggle the dark color scheme
+function toggle_dark_scheme(window)
+	set_color_scheme(window, dark_scheme)
+end
+
+-- Default configuration
+wezterm.on("update-right-status", function(window, _pane) end)
 
 wezterm.on("window-config-reloaded", function(window, pane)
 	window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
@@ -38,37 +70,29 @@ end)
 local window_padding = 0
 local act = wezterm.action
 return {
-	check_for_updates = true,
-	-- color_scheme = "AdventureTime",
-	-- color_scheme = "Solarized Dark Higher Contrast",
-	-- color_scheme = "Paraiso Dark",
-	-- color_scheme = "Peppermint",
-	-- color_scheme = "Nocturnal Winter",
-	-- color_scheme = "Galizur",
-	-- color_scheme = "Guezwhoz",
-	-- color_scheme = "Blue Matrix",
-	-- color_scheme = "3024 Night",
-	-- color_scheme = "Catppuccin Mocha",
-	-- color_scheme = "Catppuccin Macchiato",
-	color_scheme = "Catppuccin Frappe",
-	-- color_scheme = "Catppuccin Latte",
-
+	color_scheme = default_scheme,
 	colors = {
 		-- The color of the split lines between panes
 		split = "#AABBAA",
 	},
 	initial_cols = 195,
 	initial_rows = 84,
+	-- Cursor settings
+	cursor_blink_rate = 900, -- Adjust this for the blinking rate (in milliseconds)
+	cursor_blink_ease_in = "Linear",
+	cursor_blink_ease_out = "Linear",
+	check_for_updates = true,
 	font = wezterm.font_with_fallback({
 		"JetBrainsMono Nerd Font Mono",
 		"Hack Nerd Font Mono",
 		"JetBrainsMono NF",
 		"Fira Code Mono",
 	}),
-	font_size = 12.5,
+	font_size = 13.0,
 	enable_scroll_bar = false,
 	scrollback_lines = 5000,
 	front_end = "OpenGL",
+	cursor_thickness = "2px",
 	window_background_opacity = 0.97,
 	text_background_opacity = 1.00,
 	window_padding = {
@@ -89,6 +113,17 @@ return {
 	disable_default_key_bindings = true,
 	leader = { key = "a", mods = "SUPER" },
 	keys = {
+		{
+			key = "2",
+			mods = "CTRL|ALT",
+			action = wezterm.action_callback(toggle_light_scheme),
+		},
+		{
+			key = "1",
+			mods = "CTRL|ALT",
+			action = wezterm.action_callback(toggle_dark_scheme),
+		},
+
 		-- open wezterm config
 		{
 			key = ",",
