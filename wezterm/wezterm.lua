@@ -31,7 +31,7 @@ function set_color_scheme(window, scheme_name)
 	-- Check if the scheme is in the light schemes list
 	if table_contains(light_schemes, scheme_name) then
 		overrides.cursor_fg_color = "black"
-	-- Check if the scheme is in the dark schemes list
+		-- Check if the scheme is in the dark schemes list
 	elseif table_contains(dark_schemes, scheme_name) then
 		overrides.cursor_fg_color = "white"
 	end
@@ -124,7 +124,7 @@ return {
 			mods = "CTRL|ALT",
 			action = wezterm.action_callback(toggle_dark_scheme),
 		},
-
+		{ key = "n",     mods = "SUPER",       action = act.SpawnWindow },
 		-- open wezterm config
 		{
 			key = ",",
@@ -136,26 +136,26 @@ return {
 			}),
 		},
 		-- font
-		{ key = "0", mods = "CTRL|SUPER", action = act.ResetFontSize },
-		{ key = "=", mods = "CTRL|SUPER", action = act.IncreaseFontSize },
-		{ key = "-", mods = "CTRL|SUPER", action = act.DecreaseFontSize },
+		{ key = "0",     mods = "CTRL|SUPER",  action = act.ResetFontSize },
+		{ key = "=",     mods = "CTRL|SUPER",  action = act.IncreaseFontSize },
+		{ key = "-",     mods = "CTRL|SUPER",  action = act.DecreaseFontSize },
 
 		-- show tab bar navigator
-		{ key = "t", mods = "SUPER|SHIFT", action = act.ShowTabNavigator },
+		{ key = "t",     mods = "SUPER|SHIFT", action = act.ShowTabNavigator },
 		-- enter debug console
-		{ key = "l", mods = "LEADER|CTRL", action = act.ShowDebugOverlay },
+		{ key = "l",     mods = "LEADER|CTRL", action = act.ShowDebugOverlay },
 
 		-- paste from the clipboard
-		{ key = "Paste", mods = "NONE", action = act.PasteFrom("Clipboard") },
-		{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
+		{ key = "Paste", mods = "NONE",        action = act.PasteFrom("Clipboard") },
+		{ key = "v",     mods = "SUPER",       action = act.PasteFrom("Clipboard") },
 		-- paste from the primary selection
-		{ key = "v", mods = "SUPER", action = act.PasteFrom("PrimarySelection") },
+		{ key = "v",     mods = "SUPER",       action = act.PasteFrom("PrimarySelection") },
 		-- copy to clipboard
-		{ key = "Copy", mods = "NONE", action = act.CopyTo("Clipboard") },
-		{ key = "c", mods = "SUPER", action = act.CopyTo("ClipboardAndPrimarySelection") },
+		{ key = "Copy",  mods = "NONE",        action = act.CopyTo("Clipboard") },
+		{ key = "c",     mods = "SUPER",       action = act.CopyTo("ClipboardAndPrimarySelection") },
 
-		{ key = "a", mods = "LEADER|CTRL", action = act({ SendString = "\x01" }) },
-		{ key = "-", mods = "LEADER", action = act.SplitPane({ direction = "Down" }) },
+		{ key = "a",     mods = "LEADER|CTRL", action = act({ SendString = "\x01" }) },
+		{ key = "-",     mods = "LEADER",      action = act.SplitPane({ direction = "Down" }) },
 		{
 			key = "DownArrow",
 			mods = "LEADER",
@@ -172,52 +172,52 @@ return {
 			mods = "LEADER",
 			action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
 		},
-		{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
-		{ key = "Tab", mods = "SHIFT|CTRL", action = act.ActivateTabRelative(-1) },
+		{ key = "Tab",        mods = "CTRL",         action = act.ActivateTabRelative(1) },
+		{ key = "Tab",        mods = "SHIFT|CTRL",   action = act.ActivateTabRelative(-1) },
 
-		{ key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
+		{ key = "Enter",      mods = "ALT",          action = act.ToggleFullScreen },
 
-		{ key = "z", mods = "LEADER", action = "TogglePaneZoomState" },
-		{ key = "c", mods = "LEADER", action = act({ SpawnTab = "CurrentPaneDomain" }) },
+		{ key = "z",          mods = "LEADER",       action = "TogglePaneZoomState" },
+		{ key = "c",          mods = "LEADER",       action = act({ SpawnTab = "CurrentPaneDomain" }) },
 
-		{ key = "h", mods = "LEADER", action = act({ ActivatePaneDirection = "Left" }) },
-		{ key = "j", mods = "LEADER", action = act({ ActivatePaneDirection = "Down" }) },
-		{ key = "k", mods = "LEADER", action = act({ ActivatePaneDirection = "Up" }) },
-		{ key = "l", mods = "LEADER", action = act({ ActivatePaneDirection = "Right" }) },
+		{ key = "h",          mods = "LEADER",       action = act({ ActivatePaneDirection = "Left" }) },
+		{ key = "j",          mods = "LEADER",       action = act({ ActivatePaneDirection = "Down" }) },
+		{ key = "k",          mods = "LEADER",       action = act({ ActivatePaneDirection = "Up" }) },
+		{ key = "l",          mods = "LEADER",       action = act({ ActivatePaneDirection = "Right" }) },
 
-		{ key = "LeftArrow", mods = "ALT|SUPER", action = act({ ActivatePaneDirection = "Left" }) },
-		{ key = "RightArrow", mods = "ALT|SUPER", action = act({ ActivatePaneDirection = "Right" }) },
-		{ key = "UpArrow", mods = "ALT|SUPER", action = act({ ActivatePaneDirection = "Up" }) },
-		{ key = "DownArrow", mods = "ALT|SUPER", action = act({ ActivatePaneDirection = "Down" }) },
+		{ key = "LeftArrow",  mods = "ALT|SUPER",    action = act({ ActivatePaneDirection = "Left" }) },
+		{ key = "RightArrow", mods = "ALT|SUPER",    action = act({ ActivatePaneDirection = "Right" }) },
+		{ key = "UpArrow",    mods = "ALT|SUPER",    action = act({ ActivatePaneDirection = "Up" }) },
+		{ key = "DownArrow",  mods = "ALT|SUPER",    action = act({ ActivatePaneDirection = "Down" }) },
 
-		{ key = "h", mods = "SUPER|CTRL", action = act({ AdjustPaneSize = { "Left", 1 } }) },
-		{ key = "j", mods = "SUPER|CTRL", action = act({ AdjustPaneSize = { "Down", 1 } }) },
-		{ key = "k", mods = "SUPER|CTRL", action = act({ AdjustPaneSize = { "Up", 1 } }) },
-		{ key = "l", mods = "SUPER|CTRL", action = act({ AdjustPaneSize = { "Right", 1 } }) },
+		{ key = "h",          mods = "SUPER|CTRL",   action = act({ AdjustPaneSize = { "Left", 1 } }) },
+		{ key = "j",          mods = "SUPER|CTRL",   action = act({ AdjustPaneSize = { "Down", 1 } }) },
+		{ key = "k",          mods = "SUPER|CTRL",   action = act({ AdjustPaneSize = { "Up", 1 } }) },
+		{ key = "l",          mods = "SUPER|CTRL",   action = act({ AdjustPaneSize = { "Right", 1 } }) },
 
-		{ key = "1", mods = "SUPER", action = act({ ActivateTab = 0 }) },
-		{ key = "2", mods = "SUPER", action = act({ ActivateTab = 1 }) },
-		{ key = "3", mods = "SUPER", action = act({ ActivateTab = 2 }) },
-		{ key = "4", mods = "SUPER", action = act({ ActivateTab = 3 }) },
-		{ key = "5", mods = "SUPER", action = act({ ActivateTab = 4 }) },
-		{ key = "6", mods = "SUPER", action = act({ ActivateTab = 5 }) },
-		{ key = "7", mods = "SUPER", action = act({ ActivateTab = 6 }) },
-		{ key = "8", mods = "SUPER", action = act({ ActivateTab = 7 }) },
-		{ key = "9", mods = "SUPER", action = act({ ActivateTab = 8 }) },
+		{ key = "1",          mods = "SUPER",        action = act({ ActivateTab = 0 }) },
+		{ key = "2",          mods = "SUPER",        action = act({ ActivateTab = 1 }) },
+		{ key = "3",          mods = "SUPER",        action = act({ ActivateTab = 2 }) },
+		{ key = "4",          mods = "SUPER",        action = act({ ActivateTab = 3 }) },
+		{ key = "5",          mods = "SUPER",        action = act({ ActivateTab = 4 }) },
+		{ key = "6",          mods = "SUPER",        action = act({ ActivateTab = 5 }) },
+		{ key = "7",          mods = "SUPER",        action = act({ ActivateTab = 6 }) },
+		{ key = "8",          mods = "SUPER",        action = act({ ActivateTab = 7 }) },
+		{ key = "9",          mods = "SUPER",        action = act({ ActivateTab = 8 }) },
 
-		{ key = "1", mods = "LEADER", action = act({ ActivateTab = 0 }) },
-		{ key = "2", mods = "LEADER", action = act({ ActivateTab = 1 }) },
-		{ key = "3", mods = "LEADER", action = act({ ActivateTab = 2 }) },
-		{ key = "4", mods = "LEADER", action = act({ ActivateTab = 3 }) },
-		{ key = "5", mods = "LEADER", action = act({ ActivateTab = 4 }) },
-		{ key = "6", mods = "LEADER", action = act({ ActivateTab = 5 }) },
-		{ key = "7", mods = "LEADER", action = act({ ActivateTab = 6 }) },
-		{ key = "8", mods = "LEADER", action = act({ ActivateTab = 7 }) },
-		{ key = "9", mods = "LEADER", action = act({ ActivateTab = 8 }) },
+		{ key = "1",          mods = "LEADER",       action = act({ ActivateTab = 0 }) },
+		{ key = "2",          mods = "LEADER",       action = act({ ActivateTab = 1 }) },
+		{ key = "3",          mods = "LEADER",       action = act({ ActivateTab = 2 }) },
+		{ key = "4",          mods = "LEADER",       action = act({ ActivateTab = 3 }) },
+		{ key = "5",          mods = "LEADER",       action = act({ ActivateTab = 4 }) },
+		{ key = "6",          mods = "LEADER",       action = act({ ActivateTab = 5 }) },
+		{ key = "7",          mods = "LEADER",       action = act({ ActivateTab = 6 }) },
+		{ key = "8",          mods = "LEADER",       action = act({ ActivateTab = 7 }) },
+		{ key = "9",          mods = "LEADER",       action = act({ ActivateTab = 8 }) },
 
-		{ key = "&", mods = "LEADER|SHIFT", action = act({ CloseCurrentTab = { confirm = false } }) },
-		{ key = "x", mods = "LEADER", action = act({ CloseCurrentPane = { confirm = false } }) },
+		{ key = "&",          mods = "LEADER|SHIFT", action = act({ CloseCurrentTab = { confirm = false } }) },
+		{ key = "x",          mods = "LEADER",       action = act({ CloseCurrentPane = { confirm = false } }) },
 
-		{ key = "f", mods = "SHIFT|ALT", action = "ToggleFullScreen" },
+		{ key = "f",          mods = "SHIFT|ALT",    action = "ToggleFullScreen" },
 	},
 }
