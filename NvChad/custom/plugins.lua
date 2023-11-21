@@ -39,6 +39,14 @@ local plugins = {
 
   -- Install a plugin
   {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.lint"
+    end,
+  },
+
+  {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
     config = function()

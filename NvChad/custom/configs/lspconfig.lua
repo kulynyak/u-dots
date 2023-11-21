@@ -16,7 +16,7 @@ local servers = {
   "taplo",
   "yamlls",
   "dockerls",
-  "lua_ls",
+  -- "lua_ls",
 }
 
 local function organize_imports()
