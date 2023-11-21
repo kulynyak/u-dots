@@ -500,8 +500,8 @@ function prepend-sudo() {
   fi
 }
 zle -N prepend-sudo
-# defined shortcut keys: [Esc] [Esc]
-bindkey "\e\e" prepend-sudo
+# defined shortcut keys: [Esc] [Esc] disabled conflicts with AstroNvim
+# bindkey "\e\e" prepend-sudo
 
 alias chromed='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222&'
 
