@@ -1,5 +1,5 @@
 # stop interpreting Ctrl+S as a command to pause output
-stty -ixon
+# stty -ixon
 # history wrapper
 function omz_history {
   local clear list
