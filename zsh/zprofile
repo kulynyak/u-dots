@@ -30,8 +30,8 @@ Fedora)
 esac
 
 # Editors
-export EDITOR='NVIM_APPNAME=LazyVim nvim'
-export VISUAL='NVIM_APPNAME=LazyVim nvim'
+export EDITOR='$HOME/.local/bin/vi-ed'
+export VISUAL='$HOME/.local/bin/vi-ed'
 export PAGER='less'
 
 # Language
