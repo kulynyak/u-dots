@@ -70,6 +70,7 @@ end)
 local window_padding = 0
 local act = wezterm.action
 return {
+	window_decorations = "RESIZE",
 	color_scheme = default_scheme,
 	colors = {
 		-- The color of the split lines between panes

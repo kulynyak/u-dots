@@ -46,6 +46,7 @@ gochannel
 golevelup
 gonic
 gopls
+gosec
 gqlc
 gqlclient
 grng

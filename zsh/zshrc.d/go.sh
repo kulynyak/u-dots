@@ -1,5 +1,5 @@
 #!/bin/zsh
 
-export GOPATH="$HOME/go"
+export GOROOT="$(brew --prefix go)/libexec"
+export GOPATH=$GOROOT/bin
 export PATH="$GOPATH:$PATH"
-export GOROOT=$(go env GOROOT)

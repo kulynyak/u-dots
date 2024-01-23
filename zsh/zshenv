@@ -75,12 +75,12 @@ fi
 # disable to run Firefox in safe mode
 export MOZ_DISABLE_SAFE_MODE_KEY="never"
 
-# confluent
-CONFLUENT_VER="7.3.1"
-CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
-[[ -d $CONFLUENT_BIN ]] && PATH="$CONFLUENT_BIN:$PATH"
-unset CONFLUENT_VER
-unset CONFLUENT_BIN
+# # confluent
+# CONFLUENT_VER="7.3.1"
+# CONFLUENT_BIN="$HOME/.config/confluent-$CONFLUENT_VER/bin"
+# [[ -d $CONFLUENT_BIN ]] && PATH="$CONFLUENT_BIN:$PATH"
+# unset CONFLUENT_VER
+# unset CONFLUENT_BIN
 
 # pnpm
 PNPM_GLOB_BIN=$HOME/.local/share/pnpm/g-bin
@@ -112,4 +112,3 @@ DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
 export LIBRARY_PATH=/opt/homebrew/lib:$LIBRARY_PATH
 # export CGO_CFLAGS="-I/opt/homebrew/include/hunspell"
 
-export PATH=$(go env GOPATH)/bin:$PATH
