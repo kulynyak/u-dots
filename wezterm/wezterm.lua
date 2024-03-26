@@ -22,7 +22,8 @@ local dark_schemes = { "Catppuccin Mocha", "Catppuccin Macchiato", "Catppuccin F
 -- Variables to keep track of the current scheme index
 local light_scheme = "Catppuccin Latte"
 local dark_scheme = "Catppuccin Frappe"
-local default_scheme = "Catppuccin Frappe"
+-- local default_scheme = "Catppuccin Frappe"
+local default color_scheme = 'Oxocarbon Dark (Gogh)'
 
 -- Function to set color scheme
 function set_color_scheme(window, scheme_name)
@@ -71,32 +72,45 @@ local window_padding = 0
 local act = wezterm.action
 return {
 	window_decorations = "RESIZE",
+	window_frame = {
+		border_left_width = "0.5px",
+		border_right_width = "0.5px",
+		border_bottom_height = "0.5px",
+		border_top_height = "0.5px",
+		border_left_color = "black",
+		border_right_color = "black",
+		border_bottom_color = "black",
+		border_top_color = "black",
+	},
 	color_scheme = default_scheme,
 	colors = {
 		-- The color of the split lines between panes
 		split = "#AABBAA",
 	},
-	initial_cols = 195,
+	initial_cols = 196,
 	initial_rows = 84,
 	-- Cursor settings
-	cursor_blink_rate = 900, -- Adjust this for the blinking rate (in milliseconds)
+	cursor_blink_rate = 800, -- Adjust this for the blinking rate (in milliseconds)
 	cursor_blink_ease_in = "Linear",
 	cursor_blink_ease_out = "Linear",
 	check_for_updates = true,
+	adjust_window_size_when_changing_font_size = true,
 	font = wezterm.font_with_fallback({
 		"JetBrainsMono Nerd Font Mono",
-		"Hack Nerd Font Mono",
 		"FiraCode Nerd Font Mono",
+		"Hack Nerd Font Mono",
 		"Fira Code",
 		"FiraMono Nerd Font Mono",
 	}),
-	font_size = 13.0,
+	font_size = 14.0,
+	-- line_height = 1.00,
+	line_height = 0.96,
 	enable_scroll_bar = false,
 	scrollback_lines = 5000,
 	front_end = "OpenGL",
 	cursor_thickness = "2px",
-	window_background_opacity = 0.97,
-	text_background_opacity = 1.00,
+	window_background_opacity = 0.95,
+	text_background_opacity = 0.90,
 	window_padding = {
 		left = window_padding,
 		right = window_padding,
@@ -133,7 +147,7 @@ return {
 			action = act.SpawnCommandInNewTab({
 				cwd = os.getenv("WEZTERM_CONFIG_DIR"),
 				set_environment_variables = { TERM = "screen-256color" },
-				args = { "$HOME/.local/bin/vi-ed", os.getenv("WEZTERM_CONFIG_FILE") },
+				args = { "/Users/ra/.local/share/bob/nvim-bin/nvim", os.getenv("WEZTERM_CONFIG_FILE") },
 			}),
 		},
 		-- font
@@ -220,5 +234,6 @@ return {
 		{ key = "x", mods = "LEADER", action = act({ CloseCurrentPane = { confirm = false } }) },
 
 		{ key = "f", mods = "SHIFT|ALT", action = "ToggleFullScreen" },
+		{ key = "h", mods = "CMD", action = act.HideApplication },
 	},
 }

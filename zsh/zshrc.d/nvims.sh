@@ -1,12 +1,13 @@
 #!/bin/zsh
 
 alias vl="NVIM_APPNAME=LazyVim nvim"
-alias vc="NVIM_APPNAME=NvChad nvim"
+alias ci="NVIM_APPNAME=NvChad nvim"
 alias va="NVIM_APPNAME=AstroNvim nvim"
 alias vn="NVIM_APPNAME=neoLaunch nvim"
+alias vc="NVIM_APPNAME=nCi nvim"
 
 function nvims() {
-  items=("default" "LazyVim" "NvChad" "AstroNvim" "neoLaunch")
+  items=("default" "LazyVim" "NvChad" "nCi" "neoLaunch")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config » " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"

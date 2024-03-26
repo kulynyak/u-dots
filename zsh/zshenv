@@ -97,16 +97,9 @@ export PATH=".:$PATH"
 typeset -gU cdpath fpath mailpath path
 . "$HOME/.cargo/env"
 
-# GStreamer
-GST_ENV_PATH=$(realpath "/Library/Frameworks/GStreamer.framework/Versions/Current/share/gstreamer/gst-env" 2>/dev/null)
-[[ -f "$GST_ENV_PATH" ]] && . "$GST_ENV_PATH"
-export GST_DEBUG=2
-export GST_PLUGIN_PATH="$HOME/.local/lib/gstreamer-1.0:$GST_PLUGIN_PATH"
-
 # Docker
 DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
 [[ -d $DOCKER_PATH ]] && PATH="$DOCKER_PATH:$PATH"
-
 
 # export CPATH=/opt/homebrew/include/hunspell:$CPATH
 export LIBRARY_PATH=/opt/homebrew/lib:$LIBRARY_PATH

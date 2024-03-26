@@ -407,20 +407,34 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # z.lua
-case "$__OS" in
-Darwin)
-    export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua"
-    ;;
-Fedora)
-    export Z_LUA_BIN="$HOME/.local/opt/z.lua/z.lua"
-    ;;
-esac
-if [ -f $Z_LUA_BIN ] ; then
-  export _ZL_DATA=$HOME/.local/share/zlua
-  export _ZL_ADD_ONCE=1
-  eval "$(lua $Z_LUA_BIN --init zsh)"
-  alias j='z -i'
-  alias jf='z -I'
+
+# Define ENABLE_Z_LUA at the beginning of your script, setting it to 1 enables the script
+ENABLE_Z_LUA=0
+if [ "$ENABLE_Z_LUA" -eq 1 ]; then
+    case "$__OS" in
+    Darwin)
+        export Z_LUA_BIN="$(brew --prefix z.lua)/share/z.lua/z.lua"
+        ;;
+    Fedora)
+        export Z_LUA_BIN="$HOME/.local/opt/z.lua/z.lua"
+        ;;
+    esac
+
+    if [ -f $Z_LUA_BIN ] ; then
+      export _ZL_DATA=$HOME/.local/share/zlua
+      export _ZL_ADD_ONCE=1
+      eval "$(lua $Z_LUA_BIN --init zsh)"
+      alias j='z -i'
+      alias jf='z -I'
+      alias zz='z -c'      # restrict matches to subdirs of $PWD
+      alias zi='z -i'      # cd with interactive selection
+      alias zf='z -I'      # use fzf to select in multiple matches
+      alias zb='z -b'      # quickly cd to the parent directory
+    fi
+fi
+ENABLE_ZOXIDE=1
+if [ "$ENABLE_ZOXIDE" -eq 1 ]; then
+  eval "$(zoxide init zsh)"
 fi
 
 # aliases
@@ -538,11 +552,14 @@ esac
 
 alias vi="NVIM_APPNAME=neoLaunch nvim"
 
-bindkey -s ^x^x "clear\n"
+bindkey -s ^x^x " clear\n"
 
 source ~/.homebrew-token
 
 eval "$(direnv hook zsh)"
 
+
 # last line
 eval "$(starship init zsh)"
+
+
