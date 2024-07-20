@@ -36,8 +36,8 @@ status = auto
 emptyAuth = true
 
 [credential]
-helper = "aws --version codecommit credential-helper "
-UseHttpPath = true
+; helper = "aws --version codecommit credential-helper "
+; UseHttpPath = true
 
 [filter "media"]
 required = true
@@ -110,3 +110,5 @@ v = !$EDITOR $(git diff --name-only)
 	trustExitCode = true
 [init]
 	defaultBranch = main
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/

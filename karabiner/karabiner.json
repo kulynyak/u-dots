@@ -24,18 +24,13 @@
                 "from": {
                   "key_code": "escape",
                   "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
+                    "optional": ["any"]
                   }
                 },
                 "to": [
                   {
                     "key_code": "right_option",
-                    "modifiers": [
-                      "right_command",
-                      "right_control"
-                    ]
+                    "modifiers": ["right_command", "right_control"]
                   }
                 ],
                 "to_if_alone": [
@@ -58,16 +53,12 @@
                 "to": [
                   {
                     "key_code": "left_shift",
-                    "modifiers": [
-                      "left_command",
-                      "left_control",
-                      "left_option"
-                    ]
+                    "modifiers": ["left_command", "left_control", "left_option"]
                   }
                 ],
                 "to_if_alone": [
                   {
-                    "key_code": "escape"
+                    "key_code": "f19"
                   }
                 ],
                 "type": "basic"
@@ -77,12 +68,7 @@
                 "from": {
                   "key_code": "comma",
                   "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "shift",
-                      "option",
-                      "control"
-                    ]
+                    "mandatory": ["command", "shift", "option", "control"]
                   }
                 },
                 "to": [],
@@ -93,12 +79,7 @@
                 "from": {
                   "key_code": "period",
                   "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "shift",
-                      "option",
-                      "control"
-                    ]
+                    "mandatory": ["command", "shift", "option", "control"]
                   }
                 },
                 "to": [],
@@ -109,12 +90,7 @@
                   "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+/",
                   "key_code": "slash",
                   "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "shift",
-                      "option",
-                      "control"
-                    ]
+                    "mandatory": ["command", "shift", "option", "control"]
                   }
                 },
                 "to": [],
@@ -129,12 +105,8 @@
                 "from": {
                   "key_code": "left_shift",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift"
-                    ],
-                    "optional": [
-                      "caps_lock"
-                    ]
+                    "mandatory": ["right_shift"],
+                    "optional": ["caps_lock"]
                   }
                 },
                 "to": [
@@ -153,12 +125,8 @@
                 "from": {
                   "key_code": "right_shift",
                   "modifiers": {
-                    "mandatory": [
-                      "left_shift"
-                    ],
-                    "optional": [
-                      "caps_lock"
-                    ]
+                    "mandatory": ["left_shift"],
+                    "optional": ["caps_lock"]
                   }
                 },
                 "to": [
@@ -189,12 +157,8 @@
                 "from": {
                   "key_code": "q",
                   "modifiers": {
-                    "mandatory": [
-                      "command"
-                    ],
-                    "optional": [
-                      "caps_lock"
-                    ]
+                    "mandatory": ["command"],
+                    "optional": ["caps_lock"]
                   }
                 },
                 "to": [
@@ -209,12 +173,8 @@
                 "from": {
                   "key_code": "q",
                   "modifiers": {
-                    "mandatory": [
-                      "command"
-                    ],
-                    "optional": [
-                      "caps_lock"
-                    ]
+                    "mandatory": ["command"],
+                    "optional": ["caps_lock"]
                   }
                 },
                 "to": [
@@ -254,9 +214,7 @@
                 "from": {
                   "key_code": "right_command",
                   "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
+                    "optional": ["any"]
                   }
                 },
                 "to": [
@@ -282,7 +240,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -308,7 +268,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -334,7 +296,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -360,7 +324,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -386,7 +352,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -412,7 +380,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -438,7 +408,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -464,7 +436,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -490,7 +464,9 @@
                       "^io\\.alacritty$",
                       "^net\\.kovidgoyal\\.kitty$",
                       "^com\\.microsoft\\.VSCode$",
-                      "^com\\.github\\.wez\\.wezterm$"
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
                     ],
                     "type": "frontmost_application_unless"
                   }

@@ -168,6 +168,8 @@ alias pyshare='python3 -m http.server' # share current folder
 alias tailf='tail -f'
 
 alias ip='ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '\''{print $2}'\'
+alias ip6='ifconfig | grep "inet6" | grep -v "fe80::" | awk '\''{print $2}'\'
+
 
 alias ipe='wget -qO - http://ipecho.net/plain; echo'
 
@@ -183,7 +185,7 @@ Darwin)
   alias rm-relocated='rm $HOME/Desktop/Relocated\ Items.nosync && rm /Users/Shared/Relocated\ Items'
   alias ypwd='pwd | pbcopy'
   # dump brew packages
-  alias bbd='brew bundle dump --all --force --file=$HOME/z.dots/brew/Brewfile'
+  alias bbd='brew bundle dump --all --force --file=$HOME/.config/u.dots/brew/Brewfile'
   alias lsbundleid="osascript -e \
   'on run args
   set output to {}
@@ -193,7 +195,7 @@ Darwin)
   set text item delimiters to linefeed
   output as text
   end'"
-  alias flushdns='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+  alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
   function up() {
     # about 'update brew packages'
     brew update
@@ -550,7 +552,6 @@ Fedora)
 esac
 [[ -d $ASDF_LIB ]] && source "$ASDF_LIB/asdf.sh"
 
-alias vi="NVIM_APPNAME=neoLaunch nvim"
 
 bindkey -s ^x^x " clear\n"
 
@@ -563,3 +564,10 @@ eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
 
+export PATH="/opt/homebrew/opt/pcsc-lite/bin:$PATH"
+export PATH="/opt/homebrew/opt/pcsc-lite/sbin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/pcsc-lite/lib"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+# export PATH="/Users/ra/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

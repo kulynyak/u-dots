@@ -24,4 +24,5 @@ ln -sfn "$PWD" "$HOME/.config/tmux"
 # ln -sfn "$PWD"/tmux.conf "$HOME/.tmux.conf"
 if [ ! -d "$PWD/plugins/tpm" ]; then
 	git clone https://github.com/tmux-plugins/tpm $PWD/plugins/tpm
+	$HOME/.config/tmux/plugins/tpm/bin/install_plugins
 fi

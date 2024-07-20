@@ -17,13 +17,20 @@ end)
 
 -- Define your light and dark color schemes
 local light_schemes = { "Catppuccin Latte" }
-local dark_schemes = { "Catppuccin Mocha", "Catppuccin Macchiato", "Catppuccin Frappe" }
+local dark_schemes = {
+	"Pencil Dark (Gogh)",
+	"Catppuccin Mocha (Gogh)",
+	"MaterialDarker",
+	"Catppuccin Mocha",
+	"Catppuccin Macchiato",
+	"Catppuccin Frappe",
+}
 
 -- Variables to keep track of the current scheme index
 local light_scheme = "Catppuccin Latte"
-local dark_scheme = "Catppuccin Frappe"
--- local default_scheme = "Catppuccin Frappe"
-local default color_scheme = 'Oxocarbon Dark (Gogh)'
+local dark_scheme = "Pencil Dark (Gogh)"
+local default_scheme = "Pencil Dark (Gogh)"
+-- local default_scheme = "Oxocarbon Dark (Gogh)"
 
 -- Function to set color scheme
 function set_color_scheme(window, scheme_name)
@@ -102,7 +109,7 @@ return {
 		"Fira Code",
 		"FiraMono Nerd Font Mono",
 	}),
-	font_size = 14.0,
+	font_size = 13.0,
 	-- line_height = 1.00,
 	line_height = 0.96,
 	enable_scroll_bar = false,
@@ -147,7 +154,7 @@ return {
 			action = act.SpawnCommandInNewTab({
 				cwd = os.getenv("WEZTERM_CONFIG_DIR"),
 				set_environment_variables = { TERM = "screen-256color" },
-				args = { "/Users/ra/.local/share/bob/nvim-bin/nvim", os.getenv("WEZTERM_CONFIG_FILE") },
+				args = { "/opt/homebrew/bin/nvim", os.getenv("WEZTERM_CONFIG_FILE") },
 			}),
 		},
 		-- font
