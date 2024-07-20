@@ -482,6 +482,23 @@
                 "type": "basic"
               },
               {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^io\\.alacritty$",
+                      "^net\\.kovidgoyal\\.kitty$",
+                      "^com\\.microsoft\\.VSCode$",
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
                 "from": {
                   "key_code": "f11"
                 },
@@ -493,6 +510,23 @@
                 "type": "basic"
               },
               {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^io\\.alacritty$",
+                      "^net\\.kovidgoyal\\.kitty$",
+                      "^com\\.microsoft\\.VSCode$",
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "^dev\\.zed\\.Zed$",
+                      "^dev\\.zed\\.Zed-Preview$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
                 "from": {
                   "key_code": "f12"
                 },
