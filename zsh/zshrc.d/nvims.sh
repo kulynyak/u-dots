@@ -25,7 +25,26 @@ function nvims() {
   NVIM_APPNAME=$config nvim "$@"
 }
 
-function drop_vim() {
+function nvim_clean() {
+    local items=($(get_nvappnames))
+    local name=$(printf "%s\n" "${items[@]}" | fzf --prompt="Select Neovim Config to Clean: " --height=50% --layout=reverse --border --exit-0)
+
+    if [[ $name == "Cancel" ]]; then
+        echo "Operation cancelled."
+        return
+    fi
+
+    for dir in ~/.local/share/$name ~/.local/state/$name ~/.cache/$name; do
+        if [[ -d $dir ]]; then
+            rm -rf $dir
+            echo "$dir deleted."
+        else
+            echo "$dir does not exist."
+        fi
+    done
+}
+
+function nvim_drop() {
     local items=($(get_nvappnames))
     local name=$(printf "%s\n" "${items[@]}" | fzf --prompt="Select Neovim Config to Drop: " --height=50% --layout=reverse --border --exit-0)
 
