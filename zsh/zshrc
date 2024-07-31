@@ -266,7 +266,7 @@ function quiet() {
   $* &>/dev/null &
 }
 
-function buf() {
+function bkpf() {
   # about 'back up file with timestamp'
   # param 'filename'
   local filename=$1
@@ -568,6 +568,8 @@ export PATH="/opt/homebrew/opt/pcsc-lite/bin:$PATH"
 export PATH="/opt/homebrew/opt/pcsc-lite/sbin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/pcsc-lite/lib"
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-# export PATH="/Users/ra/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
+export GI_TYPELIB_PATH="/usr/local/lib/girepository-1.0:$GI_TYPELIB_PATH"
+export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
+export GI_TYPELIB_PATH="/opt/homebrew/lib/girepository-1.0:$GI_TYPELIB_PATH"
+export PATH="/opt/homebrew/bin:$PATH"
