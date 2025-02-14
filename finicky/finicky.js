@@ -315,4 +315,7 @@ module.exports = {
   defaultBrowser: getBrowser(browsers.personal),
   rewrite: appendRewriteRules(rewriteRules, browserRules),
   handlers: appendHandlerRules(handlerRules, browserRules),
+  options: {
+    hideIcon: true,
+  },
 };
