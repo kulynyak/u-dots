@@ -1,10 +1,10 @@
 [user]
-; name = Andriy Kulynyak
-; name = Andrii Kulyniak
-;	email = kulynyak@gmail.com
-name = Andriy Kulynyak
+# name = Andriy Kulynyak
+name = Andrii Kulyniak
+#	email = kulynyak@gmail.com
+# name = Andriy Kulynyak
 email = ra997716635@gmail.com
-; email = kulynyak@gmail.com
+# email = kulynyak@gmail.com
 
 [push]
 default = simple
@@ -16,14 +16,27 @@ pager = delta
 diffFilter = delta --color-only
 
 [delta]
-navigate = true    # use n and N to move between diff sections
-light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+navigate = true # use n and N to move between diff sections
+light = false   # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 
 [merge]
 conflictstyle = diff3
 
 [diff]
 colorMoved = default
+
+[difftool "sourcetree"]
+cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+path =
+
+[init]
+defaultBranch = main
+
+[url "git@gitlab.com:"]
+
+insteadOf = https://gitlab.com/
+[pull]
+rebase = true
 
 [color]
 ui = auto
@@ -33,12 +46,12 @@ interactive = auto
 status = auto
 
 [http]
-	sslVerify = true
+sslVerify = true
 emptyAuth = true
 
 [credential]
-; helper = "aws --version codecommit credential-helper "
-; UseHttpPath = true
+# helper = "aws --version codecommit credential-helper "
+# UseHttpPath = true
 
 [filter "media"]
 required = true
@@ -102,16 +115,3 @@ ac = update-index --no-assume-unchanged
 lsauc = !sh -c 'git ls-files -v | grep --color=auto \"^[[:lower:]]\"'
 # Open edited files
 v = !$EDITOR $(git diff --name-only)
-
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[init]
-	defaultBranch = main
-[url "git@gitlab.com:"]
-	insteadOf = https://gitlab.com/
-[pull]
-	rebase = true
