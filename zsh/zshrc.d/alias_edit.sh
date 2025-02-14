@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-if command -v nvim >/dev/null 2>&1; then
+if command -v hx >/dev/null 2>&1; then
+    export EDITOR='hx'
+    export VISUAL='hx'
+elif command -v nvim >/dev/null 2>&1; then
     editor() {
         NVIM_APPNAME=LazyVim nvim "$@"
     }
