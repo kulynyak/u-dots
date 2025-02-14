@@ -1,11 +1,11 @@
 #!/bin/zsh
 
-
 # Check if nnn is installed and exit if not
-command -v nnn &> /dev/null || return
+command -v nnn &>/dev/null || return
 
 # nnn aliases
-alias n='NNN_COLORS="#5251d0be;2341" PAGER="less -Ri" NVIM_APPNAME=LazyVim EDITOR="nvim" VISUAL="" nnn -cdEFnQrux'
+alias n='NNN_COLORS="#5251d0be;2341" PAGER="less -Ri" NVIM_APPNAME=LazyVim EDITOR="hx" VISUAL="" nnn -cdEFnQrux'
+# alias n='NNN_COLORS="#5251d0be;2341" PAGER="less -Ri" NVIM_APPNAME=LazyVim EDITOR="nvim" VISUAL="" nnn -cdEFnQrux'
 
 # nnn
 [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/nnn/nnn.zsh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/nnn/nnn.zsh"
