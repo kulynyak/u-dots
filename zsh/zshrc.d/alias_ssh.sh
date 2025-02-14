@@ -62,9 +62,8 @@ setup_ssh_agent
 
 # ssh exit
 function reset_term_on_ssh_disconnect() {
-    if [ "$?" -eq 255 ]; then
-        reset
-    fi
+  if [ "$?" -eq 255 ]; then
+    reset
+  fi
 }
 trap 'reset_term_on_ssh_disconnect' EXIT
-
